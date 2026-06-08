@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C2M Dashboard · Ternova Consumo Masivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple-dark:#2D1B69;--purple:#534AB7;--purple-mid:#7F77DD;--purple-light:#EEEDFE;
+  --orange:#F97316;--orange-light:#FEF3C7;
+  --green:#059669;--green-light:#D1FAE5;
+  --red:#DC2626;--red-light:#FEE2E2;
+  --amber:#D97706;--amber-light:#FEF3C7;
+  --gray:#6B7280;--gray-light:#F9FAFB;--gray-border:#E5E7EB;
+  --text:#111827;--text-muted:#6B7280;--text-light:#9CA3AF;
+  --white:#FFFFFF;--bg:#F3F4F6;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+
+/* ── HEADER ── */
+.header{background:var(--purple-dark);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+.header-logo{display:flex;align-items:center;gap:12px}
+.header-logo .brand{font-size:15px;font-weight:600;color:#fff;letter-spacing:.03em}
+.header-logo .sub{font-size:11px;color:#AFA9EC;margin-top:1px}
+.header-right{display:flex;align-items:center;gap:12px}
+.update-badge{background:rgba(255,255,255,.12);border-radius:20px;padding:4px 12px;font-size:11px;color:#AFA9EC}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#10B981;display:inline-block;margin-right:5px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── NAV ── */
+.nav{background:#fff;border-bottom:1px solid var(--gray-border);padding:0 2rem;display:flex;gap:0;position:sticky;top:56px;z-index:99}
+.nav-tab{padding:14px 18px;font-size:13px;font-weight:500;color:var(--text-muted);border-bottom:2px solid transparent;cursor:pointer;transition:all .15s;white-space:nowrap;border:none;background:none}
+.nav-tab:hover{color:var(--purple)}
+.nav-tab.active{color:var(--purple);border-bottom-color:var(--purple)}
+
+/* ── LAYOUT ── */
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+.page{display:none}.page.active{display:block}
+
+/* ── METRIC CARDS ── */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:1.5rem}
+.metric-card{background:#fff;border-radius:12px;padding:1.25rem;border:1px solid var(--gray-border)}
+.metric-label{font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem}
+.metric-value{font-size:28px;font-weight:600;color:var(--text);line-height:1}
+.metric-sub{font-size:12px;color:var(--text-muted);margin-top:.4rem;display:flex;align-items:center;gap:4px}
+.metric-sub.ok{color:var(--green)}
+.metric-sub.warn{color:var(--amber)}
+.metric-sub.bad{color:var(--red)}
+
+/* ── CARDS ── */
+.card{background:#fff;border-radius:12px;padding:1.25rem;border:1px solid var(--gray-border);margin-bottom:1rem}
+.card-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:1rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1rem}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:1rem}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:3px 8px;border-radius:99px;white-space:nowrap;letter-spacing:.03em}
+.badge-prot{background:#E6F1FB;color:#0C447C}
+.badge-incr{background:#D1FAE5;color:#065F46}
+.badge-hold{background:#F3F4F6;color:#4B5563}
+.badge-wm{background:#EEEDFE;color:#3C3489}
+.badge-ok{background:#D1FAE5;color:#065F46}
+.badge-warn{background:#FEF3C7;color:#92400E}
+.badge-bad{background:#FEE2E2;color:#991B1B}
+.badge-ago{background:#FEF3C7;color:#92400E}
+
+/* ── ALERT ── */
+.alert{border-radius:10px;padding:.8rem 1rem;font-size:12px;margin-bottom:1rem;display:flex;gap:.5rem;align-items:flex-start;line-height:1.5}
+.alert-red{background:var(--red-light);color:#7F1D1D;border:1px solid #FECACA}
+.alert-purple{background:var(--purple-light);color:#2D1B69;border:1px solid #C4B5FD}
+.alert-amber{background:var(--amber-light);color:#78350F;border:1px solid #FCD34D}
+.alert-icon{font-size:14px;margin-top:1px;flex-shrink:0}
+
+/* ── PROGRESS ── */
+.prog-wrap{margin-bottom:10px}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px}
+.prog-track{height:6px;background:var(--gray-border);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;transition:width .6s ease}
+.fill-purple{background:var(--purple-mid)}
+.fill-green{background:var(--green)}
+.fill-amber{background:var(--amber)}
+.fill-red{background:var(--red)}
+.fill-gray{background:#9CA3AF}
+
+/* ── PROJECT LIST ── */
+.section-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin:1.5rem 0 .75rem;display:flex;align-items:center;gap:8px}
+.proj-list{display:flex;flex-direction:column;gap:6px}
+.proj-item{background:#fff;border:1px solid var(--gray-border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;transition:box-shadow .15s}
+.proj-item:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.proj-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.dot-green{background:#10B981}
+.dot-amber{background:#F59E0B}
+.dot-red{background:#EF4444}
+.dot-gray{background:#9CA3AF}
+.dot-blue{background:#3B82F6}
+.dot-purple{background:#8B5CF6}
+.proj-name{font-size:13px;font-weight:500;flex:1}
+.proj-fase{font-size:11px;color:var(--text-muted);white-space:nowrap}
+.proj-val{font-size:12px;font-weight:600;color:var(--text);min-width:70px;text-align:right;white-space:nowrap}
+
+/* ── KPI TABLE ── */
+.kpi-table{width:100%;border-collapse:collapse;font-size:12px}
+.kpi-table th{text-align:left;font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 10px;border-bottom:1px solid var(--gray-border);white-space:nowrap}
+.kpi-table td{padding:10px 10px;border-bottom:1px solid var(--gray-border);vertical-align:middle;color:var(--text);font-size:12px;line-height:1.5}
+.kpi-table tr:last-child td{border-bottom:none}
+.kpi-table tr:hover td{background:var(--gray-light)}
+.ratio{font-size:18px;font-weight:700}
+.ratio-ok{color:var(--green)}.ratio-warn{color:var(--amber)}.ratio-bad{color:var(--red)}
+
+/* ── FUNNEL GRID ── */
+.funnel-boxes{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:1.5rem}
+.f-box{background:#fff;border:1px solid var(--gray-border);border-radius:10px;padding:.75rem .5rem;text-align:center}
+.f-box.active-phase{border-color:var(--purple-mid)}
+.f-box.launch-phase{border-color:var(--green)}
+.f-box.hold-phase{background:var(--gray-light)}
+.f-phase{font-size:10px;color:var(--text-muted);margin-bottom:4px;font-weight:500}
+.f-count{font-size:26px;font-weight:600;color:var(--text)}
+.f-label{font-size:10px;color:var(--text-muted);margin-top:3px}
+
+/* ── CAM BARS ── */
+.cam-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:12px}
+.cam-label{color:var(--text-muted);min-width:140px}
+.cam-val{font-weight:600;min-width:65px}
+.cam-bar{flex:1;height:6px;background:var(--gray-border);border-radius:99px;overflow:hidden}
+.cam-fill{height:100%;border-radius:99px}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--gray-border);margin:1.5rem 0}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:2rem;font-size:11px;color:var(--text-light)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .two-col,.three-col{grid-template-columns:1fr}
+  .funnel-boxes{grid-template-columns:repeat(4,1fr)}
+  .main{padding:1rem}
+  .header{padding:0 1rem}
+  .nav{padding:0 1rem;overflow-x:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">
+    <div>
+      <div class="brand">TERNOVA · Consumo Masivo</div>
+      <div class="sub">Concept to Market · Pipeline Dashboard</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="update-badge"><span class="live-dot"></span>Actualizado: semana 3 jun 2026</div>
+  </div>
+</header>
+
+<nav class="nav">
+  <button class="nav-tab active" onclick="showTab('resumen',this)">Resumen ejecutivo</button>
+  <button class="nav-tab" onclick="showTab('pipeline',this)">Pipeline & proyectos</button>
+  <button class="nav-tab" onclick="showTab('kpis',this)">KPIs del sistema</button>
+  <button class="nav-tab" onclick="showTab('funnel',this)">Funnel por fase</button>
+</nav>
+
+<main class="main">
+
+<!-- ══════════════════ RESUMEN ══════════════════ -->
+<div id="tab-resumen" class="page active">
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Valor total en tubería</div>
+      <div class="metric-value">$28.2M</div>
+      <div class="metric-sub">18 proyectos activos</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Potencial incremental</div>
+      <div class="metric-value">$5.2M</div>
+      <div class="metric-sub warn">⚠ Excluye protección UB</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Facturable Mar–Dic 2026</div>
+      <div class="metric-value">$1.23M</div>
+      <div class="metric-sub warn">⚠ Escenario optimista</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Proyectos en F5 activos</div>
+      <div class="metric-value">4</div>
+      <div class="metric-sub ok">✓ Lanzamientos en curso</div>
+    </div>
+  </div>
+
+  <div class="alert alert-red">
+    <span class="alert-icon">🔴</span>
+    <div><strong>Alerta estratégica —</strong> Meta B2C ($1.25MM) fue construida con Zeus=$700K. Zeus proyecta hoy $240K. Gap estructural ~$940K en proyectos CAM. Requiere decisión del comité.</div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Pipeline por tipo</div>
+      <div style="position:relative;height:220px"><canvas id="chartTipo" role="img" aria-label="Pipeline por tipo: protección UB $22.9M, incremental $5.2M">Protección $22.9M, Incremental $5.2M</canvas></div>
+      <div style="display:flex;gap:16px;margin-top:.75rem;font-size:11px;color:var(--text-muted);flex-wrap:wrap">
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#534AB7;margin-right:5px;vertical-align:middle"></span>Protección UB $22.9M</span>
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#10B981;margin-right:5px;vertical-align:middle"></span>Incremental $5.2M</span>
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#9CA3AF;margin-right:5px;vertical-align:middle"></span>TBD $0.1M</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Potencial incremental por agrupación</div>
+      <div style="position:relative;height:220px"><canvas id="chartDiv" role="img" aria-label="Potencial por agrupación: B2D $430K, B2C CAM $310K, fuera de CAM $4.5M">B2D $430K, B2C $310K, Fuera CAM $4.5M</canvas></div>
+      <div style="display:flex;gap:12px;margin-top:.75rem;font-size:11px;color:var(--text-muted);flex-wrap:wrap">
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#534AB7;margin-right:5px;vertical-align:middle"></span>B2D $430K</span>
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#10B981;margin-right:5px;vertical-align:middle"></span>B2C CAM $310K</span>
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#F59E0B;margin-right:5px;vertical-align:middle"></span>Fuera CAM $4.5M</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="three-col">
+    <div class="card">
+      <div class="card-title">KPI-02 · B2D Pack & Carry</div>
+      <div style="font-size:24px;font-weight:700;margin:.25rem 0">$142,600</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:.75rem">Meta 2026</div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Base $103K</span><span style="font-weight:600;color:var(--amber)">72%</span></div>
+        <div class="prog-track"><div class="prog-fill fill-amber" style="width:72%"></div></div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Optimista $171K</span><span style="font-weight:600;color:var(--green)">120%</span></div>
+        <div class="prog-track"><div class="prog-fill fill-green" style="width:100%"></div></div>
+      </div>
+      <div style="margin-top:.5rem"><span class="badge badge-ok">✓ En camino</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">KPI-01 · B2C Trash Bags</div>
+      <div style="font-size:24px;font-weight:700;margin:.25rem 0">$1,250,000</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:.75rem">Meta 2026</div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Base $310K (CAM)</span><span style="font-weight:600;color:var(--red)">25%</span></div>
+        <div class="prog-track"><div class="prog-fill fill-red" style="width:25%"></div></div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Opt. +WM MX+El Zorro</span><span style="font-weight:600;color:var(--amber)">88%</span></div>
+        <div class="prog-track"><div class="prog-fill fill-amber" style="width:88%"></div></div>
+      </div>
+      <div style="margin-top:.5rem"><span class="badge badge-warn">⚠ Requiere decisión comité</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Venta fuera de CAM</div>
+      <div style="font-size:24px;font-weight:700;margin:.25rem 0">$684,000</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:.75rem">Meta 2026</div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Base $60K (Panamá)</span><span style="font-weight:600;color:var(--red)">9%</span></div>
+        <div class="prog-track"><div class="prog-fill fill-red" style="width:9%"></div></div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Opt. +WM MX+Zorro+DC</span><span style="font-weight:600;color:var(--green)">100%+</span></div>
+        <div class="prog-track"><div class="prog-fill fill-green" style="width:100%"></div></div>
+      </div>
+      <div style="margin-top:.5rem"><span class="badge badge-ok">✓ Optimista supera meta 6.6x</span></div>
+    </div>
+  </div>
+
+  <div class="alert alert-purple">
+    <span class="alert-icon">⭐</span>
+    <div><strong>Concentración Walmart —</strong> 5 de 18 proyectos (27.8% portafolio total · 33.3% TB) responden a un solo cliente. WM México es la llave del sistema: desbloquea B2C, fuera de CAM y libera capacidad para El Zorro y otros proyectos.</div>
+  </div>
+
+</div>
+
+<!-- ══════════════════ PIPELINE ══════════════════ -->
+<div id="tab-pipeline" class="page">
+
+  <div class="section-label">Pack & Carry Bags (B2D) — 3 proyectos</div>
+  <div class="proj-list" style="margin-bottom:1.5rem">
+    <div class="proj-item"><div class="proj-dot dot-green"></div><span class="proj-name">Gabacha Transparente C/S Impresión</span><span class="badge badge-incr">Incremental</span><span class="proj-fase">F5 · Lanzamiento Controlado</span><span class="proj-val">$103K</span></div>
+    <div class="proj-item"><div class="proj-dot dot-purple"></div><span class="proj-name">Rebranding Línea Transparente</span><span class="badge badge-prot">Protección UB</span><span class="proj-fase">F5 ES · F3 CAM</span><span class="proj-val">$10.5M</span></div>
+    <div class="proj-item"><div class="proj-dot dot-amber"></div><span class="proj-name">Tela Lluvia Expansión CAM</span><span class="badge badge-incr">Incremental 2027</span><span class="proj-fase">F1 · Entend. cliente</span><span class="proj-val">$327K</span></div>
+  </div>
+
+  <div class="section-label">Trash Bags (B2C) — Proyectos Walmart <span class="badge badge-wm">⭐ 33.3% portafolio TB</span></div>
+  <div class="proj-list" style="margin-bottom:1.5rem">
+    <div class="proj-item"><div class="proj-dot dot-amber"></div><span class="proj-name">WM México Great Value</span><span class="badge badge-incr">Incremental fuera CAM</span><span class="proj-fase">F3 · SEDEMA en trámite</span><span class="proj-val">$3.0M</span></div>
+    <div class="proj-item"><div class="proj-dot dot-blue"></div><span class="proj-name">WM Embosado MP Great Value</span><span class="badge badge-prot">Protección UB</span><span class="proj-fase">F4 · Pre-GTM · OC esperadas 22-jun</span><span class="proj-val">$933K</span></div>
+    <div class="proj-item"><div class="proj-dot dot-blue"></div><span class="proj-name">GV Cambio de Marca (doblada + rollo)</span><span class="badge badge-prot">Protección UB</span><span class="proj-fase">F5 · Etapa 1 completa · Etapa 2 en F3</span><span class="proj-val">$12.5M</span></div>
+    <div class="proj-item"><div class="proj-dot dot-gray"></div><span class="proj-name">Sostenibilidad Sobreempaque WM CA</span><span class="badge badge-incr">Incremental 2027</span><span class="proj-fase">F1 · Kickoff Tatiana 4-jun</span><span class="proj-val">TBD</span></div>
+    <div class="proj-item"><div class="proj-dot dot-gray"></div><span class="proj-name">Bolsa c/ Aroma Lavanda WM CA</span><span class="badge badge-incr">Incremental</span><span class="proj-fase">F0→F2 · Ingreso formal</span><span class="proj-val">TBD</span></div>
+  </div>
+
+  <div class="section-label">Trash Bags (B2C) — Otros proyectos activos</div>
+  <div class="proj-list" style="margin-bottom:1.5rem">
+    <div class="proj-item"><div class="proj-dot dot-green"></div><span class="proj-name">SPM → Termo Panamá</span><span class="badge badge-incr">Incremental fuera CAM</span><span class="proj-fase">F5 · 1ra OC facturada · JD viaja PA 8-jun</span><span class="proj-val">$60K</span></div>
+    <div class="proj-item"><div class="proj-dot dot-green"></div><span class="proj-name">Zeus Línea Económica (HN + ES + GT)</span><span class="badge badge-incr">Incremental CAM</span><span class="proj-fase">F4→F5 · Piloto Mayab · 1er pedido 22-25 jun</span><span class="proj-val">$240K</span></div>
+    <div class="proj-item"><div class="proj-dot dot-green"></div><span class="proj-name">Coamesa Costa Rica</span><span class="badge badge-incr">Incremental CAM</span><span class="proj-fase">F3→F4 · Prod. PT esta semana</span><span class="proj-val">$70K</span></div>
+    <div class="proj-item"><div class="proj-dot dot-amber"></div><span class="proj-name">El Zorro HN / MX</span><span class="badge badge-incr">Incremental fuera CAM</span><span class="proj-fase">F3 · Reactivado jun-26 · Artes límite 25-jun</span><span class="proj-val">$1.0M</span></div>
+    <div class="proj-item"><div class="proj-dot dot-amber"></div><span class="proj-name">Dollar City Colombia</span><span class="badge badge-incr">Incremental fuera CAM</span><span class="proj-fase">F1 · Normativa OXO en proceso</span><span class="proj-val">$450K</span></div>
+    <div class="proj-item"><div class="proj-dot dot-amber"></div><span class="proj-name">Soriana México</span><span class="badge badge-incr">Incremental fuera CAM</span><span class="proj-fase">F3 · Reactivado jun-26</span><span class="proj-val">TBD</span></div>
+    <div class="proj-item"><div class="proj-dot dot-gray"></div><span class="proj-name">Arquitectura Marca Comercial TERMO</span><span class="badge badge-hold">Sin impacto 2026</span><span class="proj-fase">F1 · Diagnóstico entrega 1a sem jun</span><span class="proj-val">—</span></div>
+  </div>
+
+  <div class="section-label">Trash Bags — Reactivados y On Hold</div>
+  <div class="proj-list">
+    <div class="proj-item"><div class="proj-dot dot-amber"></div><span class="proj-name">EPA Centroamérica</span><span class="badge badge-warn">Reactivado</span><span class="proj-fase">F2→F3 · Formulario F3 llenado · Reunión sem 2-jun</span><span class="proj-val">TBD</span></div>
+    <div class="proj-item"><div class="proj-dot dot-amber"></div><span class="proj-name">La Colonia Nicaragua</span><span class="badge badge-warn">Reactivado</span><span class="proj-fase">F2 · Alcance en definición</span><span class="proj-val">TBD</span></div>
+    <div class="proj-item"><div class="proj-dot dot-gray"></div><span class="proj-name">Poopy Bags</span><span class="badge badge-hold">On Hold</span><span class="proj-fase">F2 · Pendiente liberación capacidad</span><span class="proj-val">—</span></div>
+  </div>
+
+</div>
+
+<!-- ══════════════════ KPIs ══════════════════ -->
+<div id="tab-kpis" class="page">
+
+  <div class="alert alert-purple" style="margin-bottom:1.5rem">
+    <span class="alert-icon">💡</span>
+    <div>Los primeros 3 KPIs están activos hoy. KPI 4 y 5: primera lectura agosto 2026 con los lanzamientos activos. Time to Market mide tiempo interno (Ternova) y tiempo externo (espera de cliente) por separado — protege a I+D y revela dónde está el cuello real.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Sistema de KPIs C2M — 5 indicadores</div>
+    <table class="kpi-table">
+      <thead>
+        <tr>
+          <th style="width:120px">KPI</th>
+          <th>Descripción</th>
+          <th>B2D Pack & Carry</th>
+          <th>B2C Trash Bags</th>
+          <th>Fuera CAM</th>
+          <th style="width:100px">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>01</strong><br>Time to Market</td>
+          <td style="color:var(--text-muted)">Semanas por fase<br>Interno vs. espera cliente</td>
+          <td>Gabacha: 6+ sem F4<br>Rebranding: 10+ sem</td>
+          <td>Zeus: 10+ sem<br>Coamesa: 10+ sem<br>WM MX: 8+ sem en F3</td>
+          <td>Panamá: 7+ sem</td>
+          <td><span class="badge badge-ok">Activo</span></td>
+        </tr>
+        <tr>
+          <td><strong>02</strong><br>Dinero en tubería</td>
+          <td style="color:var(--text-muted)">Proyección facturable<br>Mar–Dic 2026</td>
+          <td>$103K base<br>$171K optimista</td>
+          <td>$127K base<br>$1.13M optimista</td>
+          <td>$60K base<br>$4.5M optimista</td>
+          <td><span class="badge badge-ok">Activo</span></td>
+        </tr>
+        <tr>
+          <td><strong>03</strong><br>Pipeline Coverage</td>
+          <td style="color:var(--text-muted)">Potencial anual<br>÷ meta Matriz X</td>
+          <td><span class="ratio ratio-warn">0.7x</span> base<br><span class="ratio ratio-ok">3.0x</span> opt</td>
+          <td><span class="ratio ratio-bad">0.25x</span> base<br><span class="ratio ratio-bad">0.25x</span> opt</td>
+          <td><span class="ratio ratio-bad">0.09x</span> base<br><span class="ratio ratio-ok">6.6x</span> opt</td>
+          <td><span class="badge badge-ok">Activo</span></td>
+        </tr>
+        <tr>
+          <td><strong>04</strong><br>% Éxito lanzamientos</td>
+          <td style="color:var(--text-muted)">2da OC confirmada<br>dentro de 90 días</td>
+          <td>Gabacha C/S: jun-26</td>
+          <td>Zeus HN: jun-26<br>Panamá: may-26<br>Coamesa CR: jun-26</td>
+          <td>—</td>
+          <td><span class="badge badge-ago">Ago 2026</span></td>
+        </tr>
+        <tr>
+          <td><strong>05</strong><br>Adherencia C2M</td>
+          <td style="color:var(--text-muted)">Entregables cumplidos<br>÷ requeridos × 100</td>
+          <td colspan="3" style="text-align:center;font-weight:500">54% promedio sistema (18 proyectos) · Meta sistema maduro: ≥80%</td>
+          <td><span class="badge badge-ago">Mes 2–3</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Pipeline Coverage — B2D Pack & Carry · meta $142,600</div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Base: Gabacha $103K</span><span style="font-weight:600;color:var(--amber)">0.7x</span></div>
+        <div class="prog-track"><div class="prog-fill fill-amber" style="width:23%"></div></div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Optimista: + Tela Lluvia $430K</span><span style="font-weight:600;color:var(--green)">3.0x</span></div>
+        <div class="prog-track"><div class="prog-fill fill-green" style="width:100%"></div></div>
+      </div>
+      <div style="font-size:10px;color:var(--text-light);margin-top:.5rem">Benchmark saludable: 3x–5x · P&C alcanza benchmark en escenario optimista con Tela Lluvia 2027</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Pipeline Coverage — B2C Trash Bags · meta $1,250,000</div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Base: Zeus + Coamesa $310K</span><span style="font-weight:600;color:var(--red)">0.25x</span></div>
+        <div class="prog-track"><div class="prog-fill fill-red" style="width:6%"></div></div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-label"><span>Opt: + WM MX + El Zorro + DC $4.2M</span><span style="font-weight:600;color:var(--green)">3.4x</span></div>
+        <div class="prog-track"><div class="prog-fill fill-green" style="width:100%"></div></div>
+      </div>
+      <div style="font-size:10px;color:var(--red);margin-top:.5rem">⚠ La llave es WM México — su desbloqueo mueve todo el sistema</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════ FUNNEL ══════════════════ -->
+<div id="tab-funnel" class="page">
+
+  <div class="funnel-boxes">
+    <div class="f-box"><div class="f-phase">F0</div><div class="f-count">2</div><div class="f-label">Radar</div></div>
+    <div class="f-box"><div class="f-phase">F1</div><div class="f-count">4</div><div class="f-label">Entend. cliente</div></div>
+    <div class="f-box"><div class="f-phase">F2</div><div class="f-count">3</div><div class="f-label">Ideación</div></div>
+    <div class="f-box active-phase"><div class="f-phase">F3</div><div class="f-count">4</div><div class="f-label">Factibilidad</div></div>
+    <div class="f-box active-phase"><div class="f-phase">F4</div><div class="f-count">2</div><div class="f-label">Pre-GTM</div></div>
+    <div class="f-box launch-phase"><div class="f-phase">F5</div><div class="f-count">4</div><div class="f-label">Lanzamiento</div></div>
+    <div class="f-box hold-phase"><div class="f-phase">Hold</div><div class="f-count" style="color:#9CA3AF">3</div><div class="f-label" style="color:#9CA3AF">On Hold</div></div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Proyectos por fase</div>
+      <div style="position:relative;height:220px"><canvas id="chartFunnel" role="img" aria-label="Proyectos por fase: F0:2, F1:4, F2:3, F3:4, F4:2, F5:4, Hold:3">F0:2, F1:4, F2:3, F3:4, F4:2, F5:4, Hold:3</canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tipo de innovación en el portafolio</div>
+      <div style="position:relative;height:220px"><canvas id="chartInno" role="img" aria-label="Tipo de innovación: incremental 83%, adyacente 11%, proactivo 6%">Incremental 83%, adyacente 11%, proactivo 6%</canvas></div>
+      <div style="font-size:10px;color:var(--text-light);margin-top:.5rem">Benchmark: 70% incremental · 20% adyacente · 10% proactivo</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Distribución CAM vs. fuera de CAM (potencial incremental)</div>
+    <div class="cam-row">
+      <span class="cam-label">Dentro de CAM</span>
+      <span class="cam-val" style="color:var(--purple)">$310K</span>
+      <div class="cam-bar"><div class="cam-fill" style="width:6%;background:var(--purple-mid)"></div></div>
+    </div>
+    <div class="cam-row">
+      <span class="cam-label">Fuera de CAM (optimista)</span>
+      <span class="cam-val" style="color:var(--amber)">$4.5M</span>
+      <div class="cam-bar"><div class="cam-fill" style="width:88%;background:var(--amber)"></div></div>
+    </div>
+    <div class="cam-row">
+      <span class="cam-label">Sin dato / TBD</span>
+      <span class="cam-val" style="color:var(--gray)">TBD</span>
+      <div class="cam-bar"><div class="cam-fill" style="width:2%;background:#D1D5DB"></div></div>
+    </div>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:.75rem;padding:.6rem;background:var(--gray-light);border-radius:8px">
+      El 93% del potencial incremental está fuera de CAM. El pipeline CAM solo (Zeus + Coamesa = $310K) no alcanza la meta B2C de $1.25MM. La estrategia de expansión geográfica es la palanca principal del sistema.
+    </div>
+  </div>
+
+  <div class="alert alert-amber">
+    <span class="alert-icon">⚠</span>
+    <div><strong>Decisión pendiente —</strong> con Juan Diego activando toda la tubería, EPA y La Colonia regresan al funnel. I+D no puede absorber 18 proyectos simultáneamente. El criterio de priorización formal está pendiente de aprobación en el comité.</div>
+  </div>
+
+</div>
+
+</main>
+
+<footer class="footer">
+  Ternova Consumo Masivo · Marketing Estratégico · Georgina Ehlerman · C2M Dashboard v1.0 · Jun 2026
+</footer>
+
+<script>
+function showTab(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='resumen') initResumen();
+  if(id==='funnel') initFunnel();
+}
+
+let rDone=false, fDone=false;
+
+function initResumen(){
+  if(rDone) return; rDone=true;
+  new Chart(document.getElementById('chartTipo'),{
+    type:'doughnut',
+    data:{labels:['Protección UB','Venta Incremental','TBD'],
+      datasets:[{data:[22.9,5.2,0.1],
+        backgroundColor:['#534AB7','#10B981','#9CA3AF'],
+        borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'68%',
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:d=>' $'+d.raw+'M'}}}}
+  });
+  new Chart(document.getElementById('chartDiv'),{
+    type:'bar',
+    data:{labels:['B2D P&C','B2C CAM','Fuera CAM'],
+      datasets:[{
+        label:'Potencial',
+        data:[430,310,4510],
+        backgroundColor:['#534AB7','#10B981','#F59E0B'],
+        borderRadius:6,borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:d=>d.raw>999?' $'+(d.raw/1000).toFixed(1)+'M':' $'+d.raw+'K'}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:12}}},
+        y:{grid:{color:'rgba(0,0,0,.06)'},
+          ticks:{callback:v=>v>999?'$'+(v/1000).toFixed(0)+'M':'$'+v+'K',font:{size:11}}}}}
+  });
+}
+
+function initFunnel(){
+  if(fDone) return; fDone=true;
+  new Chart(document.getElementById('chartFunnel'),{
+    type:'bar',
+    data:{labels:['F0 Radar','F1 Entend.','F2 Ideación','F3 Factib.','F4 Pre-GTM','F5 Lanza.','On Hold'],
+      datasets:[{
+        label:'Proyectos',
+        data:[2,4,3,4,2,4,3],
+        backgroundColor:['#C4B5FD','#8B5CF6','#F59E0B','#534AB7','#10B981','#059669','#9CA3AF'],
+        borderRadius:5,borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{grid:{color:'rgba(0,0,0,.06)'},ticks:{stepSize:1,font:{size:11}}},
+        y:{grid:{display:false},ticks:{font:{size:12}}}}}
+  });
+  new Chart(document.getElementById('chartInno'),{
+    type:'doughnut',
+    data:{labels:['Incremental','Adyacente','Proactivo / orgánico'],
+      datasets:[{data:[83,11,6],
+        backgroundColor:['#534AB7','#10B981','#F59E0B'],
+        borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',
+      plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:12,
+        generateLabels:chart=>{
+          const d=chart.data;
+          return d.labels.map((l,i)=>({text:l+' '+d.datasets[0].data[i]+'%',
+            fillStyle:d.datasets[0].backgroundColor[i],strokeStyle:'#fff',lineWidth:1}));
+        }}}}}
+  });
+}
+
+initResumen();
+</script>
+</body>
+</html>
