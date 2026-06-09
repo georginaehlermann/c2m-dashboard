@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>C2M Dashboard Â· Ternova</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -205,8 +206,8 @@ footer{text-align:center;padding:1.5rem;font-size:11px;color:#9CA3AF}
   <!-- TABS -->
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem">
     <div class="tabs" style="margin-bottom:0">
-      <button class="tab active" id="tab-pc" onclick="setTab('pc')">ðŸ›ï¸ Pack &amp; Carry Bags</button>
-      <button class="tab" id="tab-tb" onclick="setTab('tb')">ðŸ—‘ï¸ Trash Bags</button>
+      <button class="tab active" id="tab-pc" onclick="setTab('pc')">&#128717; Pack &amp; Carry Bags</button>
+      <button class="tab" id="tab-tb" onclick="setTab('tb')">&#128465; Trash Bags</button>
     </div>
     <button onclick="openWhatsApp('el pipeline C2M')" style="display:inline-flex;align-items:center;gap:.5rem;background:#25D366;color:white;border:none;border-radius:10px;padding:.5rem 1rem;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .2s;white-space:nowrap" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white">
@@ -224,10 +225,10 @@ footer{text-align:center;padding:1.5rem;font-size:11px;color:#9CA3AF}
       <div class="chart-wrap"><canvas id="chartFunnel" width="500" height="220"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="panel-title" id="panel-title">â† Selecciona una fase</div>
+      <div class="panel-title" id="panel-title">&larr; Selecciona una fase</div>
       <div id="panel-body">
         <div class="panel-empty">
-          <div style="font-size:2rem">ðŸ‘†</div>
+          <div style="font-size:2rem">&#128070;</div>
           <div>Haz clic en cualquier barra<br>del funnel para ver los proyectos</div>
         </div>
       </div>
@@ -295,14 +296,14 @@ const PROJECTS=[
   {id:'p2',div:'pc',name:'Rebranding LÃ­nea Transparente',country:'ES Â· NI Â· CAM',phase:'F5',phaseLabel:'F5 ES Â· F3 CAM',type:'prot',typeLabel:'ProtecciÃ³n UB',impact:10517760,impactOpt:10517760,status:'amber',statusLabel:'ES F5 Â· CAM F3',detail:{obj:'Blindar valor de marca TERMO. Protege $10.5MM en venta actual.',margen:'Blindaje $10.5MM',vol:'92 SKUs Â· CAM completo',avances:['MigraciÃ³n ES planificada y en ejecuciÃ³n â€” finaliza julio 2026.','Gantt CAM: 92 SKUs, 12 bloques, 41 semanas, inicio semana 25 aÃ±o.','Reempaquetado NI: 100 bultos estimados para viernes 5 jun.'],riesgos:['CAM con imagen mixta hasta marzo 2027.','3 panoramas distintos presentados â€” patrÃ³n de ampliaciÃ³n de scope.','F3 CAM lleva 6+ semanas (mÃ¡x estÃ¡ndar: 4 sem).'],pasos:['Rebeca: Gantt actualizado compartir por correo.','Olimpia ingresa 92 EAN de una vez (semana 25).','Validar con Carlos Herrera reducciÃ³n de tiempos de preprensa.']}},
   {id:'p3',div:'pc',name:'Tela Lluvia ExpansiÃ³n CAM',country:'CAM',phase:'F1',phaseLabel:'F1 Â· Entend. Cliente',type:'incr',typeLabel:'Incremental 2027',impact:0,impactOpt:327000,status:'blue',statusLabel:'AnÃ¡lisis 2027',detail:{obj:'Habilitante 2027 con CAPEX coextrusor. AnÃ¡lisis TAM/SAM CAM.',margen:'TBD â€” 2027',vol:'TBD segÃºn geografÃ­a',avances:['Proyecto presentado al foro.','Irmita inicia validaciÃ³n de datos y bÃºsqueda exhaustiva.'],riesgos:['No genera impacto en meta 2026.','TAM/SAM pendiente de completar.'],pasos:['Irmita: validaciÃ³n de datos y tamaÃ±o de oportunidad por geografÃ­a.','JosÃ© David: primeras negociaciones con clientes a finales 2026.']}},
   {id:'t1',div:'tb',name:'WM MÃ©xico Great Value',country:'MÃ©xico',phase:'F3',phaseLabel:'F3 Â· Factibilidad',type:'incr',typeLabel:'Incr. fuera CAM',impact:3000000,impactOpt:3000000,status:'amber',statusLabel:'SEDEMA en trÃ¡mite',detail:{obj:'Entrada a MÃ©xico con marca privada GV â€” $3MM potencial. La llave del sistema.',margen:'TBD â€” Trucost',vol:'120 t primera orden',avances:['Proyecto descongelado tras reuniÃ³n 20 mayo.','Muestras 3 medidas enviadas a WM.','Trucost analizando precios â€” BelÃ©n cambiÃ³ hora de cita (seÃ±al positiva).'],riesgos:['SEDEMA y REF pendientes (10 dÃ­as crÃ­ticos).','Sin fecha de entrada (Oct/Nov/Q1 2027) no se mueven planes.','Vendor code pendiente.'],pasos:['Resolver SEDEMA en prÃ³ximos 10 dÃ­as.','Carolina: definir fecha entrada (oct/nov/Q1 2027).','Descongelar prospectos: El Zorro, Soriana, Chedraui, La Comer.']}},
-  {id:'t2',div:'tb',name:'Zeus LÃ­nea EconÃ³mica HN+ES+GT',country:'HN Â· ES Â· GT',phase:'F4',phaseLabel:'F4â†’F5 Â· Lanzamiento',type:'incr',typeLabel:'Incremental CAM',impact:240000,impactOpt:240000,status:'green',statusLabel:'Piloto activo',detail:{obj:'Bolsa econÃ³mica canal tradicional. Piloto Mayab HN con expansiÃ³n ES y GT.',margen:'Apretado â€” foco en volumen',vol:'8 t/mes HN Â· 18 t Q4',avances:['ReuniÃ³n con Mayab 27 mayo â€” compromiso alta gerencia confirmado.','Primera OC esperada bodega Mayab: 22-25 junio.'],riesgos:['Precio ~10% arriba del lÃ­der HÃ©rcules.','Sin incentivos a fuerza de ventas â€” margen apretado.'],pasos:['Activar ES y GT sin esperar seÃ±al de MÃ©xico (JD).','Guillermo Lemus: afinar forecast ES y GT con Vicente.','Agosto: corte para corroborar hipÃ³tesis del producto.']}},
+  {id:'t2',div:'tb',name:'Zeus LÃ­nea EconÃ³mica HN+ES+GT',country:'HN Â· ES Â· GT',phase:'F4',phaseLabel:'F4&rarr;F5 Â· Lanzamiento',type:'incr',typeLabel:'Incremental CAM',impact:240000,impactOpt:240000,status:'green',statusLabel:'Piloto activo',detail:{obj:'Bolsa econÃ³mica canal tradicional. Piloto Mayab HN con expansiÃ³n ES y GT.',margen:'Apretado â€” foco en volumen',vol:'8 t/mes HN Â· 18 t Q4',avances:['ReuniÃ³n con Mayab 27 mayo â€” compromiso alta gerencia confirmado.','Primera OC esperada bodega Mayab: 22-25 junio.'],riesgos:['Precio ~10% arriba del lÃ­der HÃ©rcules.','Sin incentivos a fuerza de ventas â€” margen apretado.'],pasos:['Activar ES y GT sin esperar seÃ±al de MÃ©xico (JD).','Guillermo Lemus: afinar forecast ES y GT con Vicente.','Agosto: corte para corroborar hipÃ³tesis del producto.']}},
   {id:'t3',div:'tb',name:'Coamesa Costa Rica',country:'Costa Rica',phase:'F4',phaseLabel:'F4 Â· Pre-GTM',type:'incr',typeLabel:'Incremental CAM',impact:70000,impactOpt:70000,status:'green',statusLabel:'Cartillas en camino',detail:{obj:'Sobreempaque bolsas para Coamesa CR. Primer lote mÃ­nimo producido.',margen:'Tasa igual a Dollar City',vol:'8 t/mes rÃ©gimen',avances:['ValidaciÃ³n remota COMPLETADA (12 mayo).','Cartillas enviadas a CR por DHL.'],riesgos:['2 semanas para aprobaciÃ³n si van fÃ­sicas.'],pasos:['JD: gestionar OC con cliente una vez con inventario total.','Larissa: validar fecha corrida Eco City.']}},
   {id:'t4',div:'tb',name:'WM Embosado MP Great Value',country:'CAM',phase:'F4',phaseLabel:'F4 Â· Pre-GTM',type:'incr',typeLabel:'Incremental âœ¦ Reclasif.',impact:933000,impactOpt:933000,status:'green',statusLabel:'1ra prod. completa',detail:{obj:'Embosado GV reclasificado como Venta Incremental (delta vs. China).',margen:'Delta vs. sourcing China',vol:'21 t primera producciÃ³n',avances:['Primera producciÃ³n completa (21 t). Factura desde lunes 25 mayo.','RECLASIFICADO: de ProtecciÃ³n a Venta Incremental.','Apertura trade logÃ­stico WM: 15 junio.'],riesgos:['Artes bolsa en rollo y WM MX en paralelo â€” conflicto preprensa.'],pasos:['JD: calcular delta venta incremental real vs. China.','SesiÃ³n lecciones aprendidas 1 junio.']}},
-  {id:'t5',div:'tb',name:'SPM â†’ Termo PanamÃ¡',country:'PanamÃ¡',phase:'F5',phaseLabel:'F5 Â· Lanzamiento',type:'incr',typeLabel:'Incr. fuera CAM',impact:60000,impactOpt:60000,status:'green',statusLabel:'1ra OC facturada',detail:{obj:'Cambio de marca para canal tradicional PanamÃ¡ (Cofrey).',margen:'Riesgo logÃ­stico por bajo vol.',vol:'Low â€” crecer prÃ³xima OC',avances:['Primera OC facturada.','JD viaja semana 8 junio para reuniÃ³n con Escofery.'],riesgos:['Volumen bajo â€” costo logÃ­stico alto.'],pasos:['JD: negociar mayor volumen con Cofrey.','Carlos Oviedo: evaluar si modelo cofree es viable y escalable.']}},
-  {id:'t6',div:'tb',name:'GV Cambio de Marca (doblada + rollo)',country:'CAM',phase:'F5',phaseLabel:'F5 Etapa 1 Â· F3 Etapa 2',type:'prot',typeLabel:'ProtecciÃ³n UB',impact:12500000,impactOpt:12500000,status:'blue',statusLabel:'Etapa 1 completa',detail:{obj:'Cambio Supermax â†’ GV. Blindaje $12.5MM. Etapa 2 (rollo) en F3.',margen:'Blindaje $12.5MM',vol:'5 artÃ­culos migrados',avances:['Write-off $7,000 sobreempaque antiguo aprobado.','Roadmap migraciÃ³n compartido a WM.','Andrea (agencia WM) trabajando artes Fase 2.'],riesgos:['No ceder ante calibraciÃ³n de precios de WM.','Artes rollo + WM MX en paralelo â€” conflicto preprensa.'],pasos:['JD: seguimiento WM entrega artes martes 9 junio.','SesiÃ³n lecciones aprendidas 1 junio.']}},
+  {id:'t5',div:'tb',name:'SPM &rarr; Termo PanamÃ¡',country:'PanamÃ¡',phase:'F5',phaseLabel:'F5 Â· Lanzamiento',type:'incr',typeLabel:'Incr. fuera CAM',impact:60000,impactOpt:60000,status:'green',statusLabel:'1ra OC facturada',detail:{obj:'Cambio de marca para canal tradicional PanamÃ¡ (Cofrey).',margen:'Riesgo logÃ­stico por bajo vol.',vol:'Low â€” crecer prÃ³xima OC',avances:['Primera OC facturada.','JD viaja semana 8 junio para reuniÃ³n con Escofery.'],riesgos:['Volumen bajo â€” costo logÃ­stico alto.'],pasos:['JD: negociar mayor volumen con Cofrey.','Carlos Oviedo: evaluar si modelo cofree es viable y escalable.']}},
+  {id:'t6',div:'tb',name:'GV Cambio de Marca (doblada + rollo)',country:'CAM',phase:'F5',phaseLabel:'F5 Etapa 1 Â· F3 Etapa 2',type:'prot',typeLabel:'ProtecciÃ³n UB',impact:12500000,impactOpt:12500000,status:'blue',statusLabel:'Etapa 1 completa',detail:{obj:'Cambio Supermax &rarr; GV. Blindaje $12.5MM. Etapa 2 (rollo) en F3.',margen:'Blindaje $12.5MM',vol:'5 artÃ­culos migrados',avances:['Write-off $7,000 sobreempaque antiguo aprobado.','Roadmap migraciÃ³n compartido a WM.','Andrea (agencia WM) trabajando artes Fase 2.'],riesgos:['No ceder ante calibraciÃ³n de precios de WM.','Artes rollo + WM MX en paralelo â€” conflicto preprensa.'],pasos:['JD: seguimiento WM entrega artes martes 9 junio.','SesiÃ³n lecciones aprendidas 1 junio.']}},
   {id:'t7',div:'tb',name:'El Zorro HN / MX',country:'HN Â· MÃ©xico',phase:'F3',phaseLabel:'F3 Â· Factibilidad',type:'incr',typeLabel:'Incr. fuera CAM',impact:0,impactOpt:1000000,status:'amber',statusLabel:'Reactivado jun-26',detail:{obj:'LÃ­nea econÃ³mica canal mayorista barrotero. Muestras Zeus preparadas.',margen:'TBD',vol:'TBD',avances:['Claudia Romero reactivÃ³ comunicaciÃ³n con el cliente.','Muestras Zeus preparadas.'],riesgos:['Cliente condicionÃ³ reuniÃ³n a tener bodega en MX y costo resuelto.','Artes lÃ­mite 25 junio.'],pasos:['Claudia Romero: confirmar fecha reuniÃ³n fÃ­sica (semana 9 jun).','Propuesta precio aterrizado al mercado mexicano.']}},
   {id:'t8',div:'tb',name:'Dollar City Colombia (Reformulado)',country:'Colombia',phase:'F1',phaseLabel:'F1 Â· Entend. Cliente',type:'incr',typeLabel:'Incr. fuera CAM',impact:0,impactOpt:450000,status:'amber',statusLabel:'Research en proceso',detail:{obj:'Reformular para normativa OXO Colombia y reactivar canal DC COL.',margen:'TBD',vol:'TBD',avances:['DC no cerrÃ³ la puerta.','Irmita activada para research competencia.','Nelson activado para normativa.'],riesgos:['Normativa: 100% compostable o 100% PCR nacional.'],pasos:['Nelson: normativa completa.','Irmita: shopping virtual supermercados colombianos.']}},
-  {id:'t9',div:'tb',name:'EPA CentroamÃ©rica',country:'CAM',phase:'F3',phaseLabel:'F3 Â· Reactivado',type:'incr',typeLabel:'Incremental CAM',impact:0,impactOpt:500000,status:'amber',statusLabel:'Reactivado',detail:{obj:'Activar canal EPA con excedente de capacidad (80-100 t/mes).',margen:'TBD â€” 4 meses para facturar',vol:'TBD',avances:['DECISIÃ“N Juan Diego: descongelar y activar EPA.','Formulario F3 llenado por Caro Revelo semana 1-jun.'],riesgos:['Sin portafolio de tamaÃ±os definido.','Si se toca al cliente sin alineaciÃ³n interna, pedirÃ¡ producto sin tiempo de respuesta.'],pasos:['Caro: ingresar GAP base para revisiÃ³n de Cris.','Secuencia: GAP base â†’ I+D â†’ cotizaciÃ³n â†’ ruta precios â†’ cliente.']}},
+  {id:'t9',div:'tb',name:'EPA CentroamÃ©rica',country:'CAM',phase:'F3',phaseLabel:'F3 Â· Reactivado',type:'incr',typeLabel:'Incremental CAM',impact:0,impactOpt:500000,status:'amber',statusLabel:'Reactivado',detail:{obj:'Activar canal EPA con excedente de capacidad (80-100 t/mes).',margen:'TBD â€” 4 meses para facturar',vol:'TBD',avances:['DECISIÃ“N Juan Diego: descongelar y activar EPA.','Formulario F3 llenado por Caro Revelo semana 1-jun.'],riesgos:['Sin portafolio de tamaÃ±os definido.','Si se toca al cliente sin alineaciÃ³n interna, pedirÃ¡ producto sin tiempo de respuesta.'],pasos:['Caro: ingresar GAP base para revisiÃ³n de Cris.','Secuencia: GAP base &rarr; I+D &rarr; cotizaciÃ³n &rarr; ruta precios &rarr; cliente.']}},
   {id:'t10',div:'tb',name:'La Colonia Nicaragua',country:'Nicaragua',phase:'F2',phaseLabel:'F2 Â· Reactivado',type:'incr',typeLabel:'Incremental CAM',impact:0,impactOpt:0,status:'amber',statusLabel:'Reactivado',detail:{obj:'Reactivar marca privada La Colonia con excedente de capacidad.',margen:'TBD',vol:'TBD',avances:['Reactivado por instrucciÃ³n de Juan Diego.'],riesgos:['Alcance y responsable pendientes.'],pasos:['Confirmar responsable comercial.','Definir alcance y portafolio inicial.']}},
   {id:'t11',div:'tb',name:'Soriana MÃ©xico',country:'MÃ©xico',phase:'F3',phaseLabel:'F3 Â· Reactivado',type:'incr',typeLabel:'Incr. fuera CAM',impact:0,impactOpt:0,status:'amber',statusLabel:'Brief interno cliente',detail:{obj:'Marca privada Soriana MÃ©xico â€” posicionar Ternova como experto.',margen:'TBD',vol:'TBD',avances:['ComunicaciÃ³n reactivada junio 2026.','Soriana levantando brief interno.'],riesgos:['TomarÃ¡ mÃ¡s tiempo que El Zorro.'],pasos:['Esperar brief interno antes de proponer.','Activar una vez WM MÃ©xico tenga seÃ±al clara.']}},
   {id:'t12',div:'tb',name:'Sostenibilidad Sobreempaque WM CA',country:'CAM',phase:'F1',phaseLabel:'F1 Â· Entend. Cliente',type:'incr',typeLabel:'Incremental 2027',impact:0,impactOpt:0,status:'blue',statusLabel:'Kickoff 4-jun',detail:{obj:'Sobreempaque 100% reciclable â€” pilar economÃ­a circular WM.',margen:'N/A â€” 2027',vol:'N/A',avances:['Kickoff con Tatiana WM realizado 4 junio.'],riesgos:['Resultado esperado: junio 2027.'],pasos:['Lotes controlados marca comercial para prÃ¡ctica de planta.','Gantt madre WM CA: Sostenibilidad + Aroma Lavanda.']}},
@@ -392,7 +393,7 @@ function renderTable(){
       <td><span class="badge ${phaseClass(p.phase)}">${p.phaseLabel}</span></td>
       <td><span class="badge ${TY_CLS[p.type]||''}">${p.typeLabel}</span></td>
       <td class="td-val">${val>0?fmt(val):'<span class="td-tbd">TBD</span>'}</td>
-      <td><button class="btn-detail" onclick="openModal('${p.id}')">Ver detalle â†’</button></td>
+      <td><button class="btn-detail" onclick="openModal('${p.id}')">Ver detalle &rarr;</button></td>
     </tr>`;
   }).join('');
   document.getElementById('proj-mobile').innerHTML=projs.map(p=>{
@@ -406,7 +407,7 @@ function renderTable(){
         <div style="display:flex;gap:.4rem;flex-wrap:wrap"><span style="font-size:10px;color:#9CA3AF">${p.country}</span><span class="badge ${TY_CLS[p.type]||''}">${p.typeLabel}</span></div>
         <span style="font-weight:700;color:#534AB7;font-size:13px">${val>0?fmt(val):'TBD'}</span>
       </div>
-      <button class="m-card-btn" onclick="openModal('${p.id}')">Ver detalle â†’</button>
+      <button class="m-card-btn" onclick="openModal('${p.id}')">Ver detalle &rarr;</button>
     </div>`;
   }).join('');
 }
@@ -420,8 +421,8 @@ function updateChart(){
 }
 
 function resetPanel(){
-  document.getElementById('panel-title').textContent='â† Selecciona una fase';
-  document.getElementById('panel-body').innerHTML='<div class="panel-empty"><div style="font-size:2rem">ðŸ‘†</div><div>Haz clic en cualquier barra<br>del funnel para ver los proyectos</div></div>';
+  document.getElementById('panel-title').textContent='&larr; Selecciona una fase';
+  document.getElementById('panel-body').innerHTML='<div class="panel-empty"><div style="font-size:2rem">&#128070;</div><div>Haz clic en cualquier barra<br>del funnel para ver los proyectos</div></div>';
 }
 
 function showPhase(idx){
@@ -523,8 +524,8 @@ function openModal(id){
       <ul>${d.riesgos.map(r=>`<li><span style="color:#F59E0B">âš </span>${r}</li>`).join('')}</ul>
     </div>
     <div class="modal-block" style="background:#EFF6FF;border:1px solid #BFDBFE">
-      <div class="modal-block-title" style="color:#1E40AF">â†’ PrÃ³ximos pasos & Responsables</div>
-      <ul>${d.pasos.map(s=>`<li><span style="color:#3B82F6">â†’</span>${s}</li>`).join('')}</ul>
+      <div class="modal-block-title" style="color:#1E40AF">&rarr; PrÃ³ximos pasos & Responsables</div>
+      <ul>${d.pasos.map(s=>`<li><span style="color:#3B82F6">&rarr;</span>${s}</li>`).join('')}</ul>
     </div>
     <div style="border-top:1px solid #EDE9FE;padding-top:.85rem;text-align:center">
       <div style="font-size:10px;color:#9CA3AF;margin-bottom:.5rem">Al hacer clic, enviarÃ¡s un mensaje directo a <strong>Geo Ehlerman</strong>. Te atenderÃ© a la brevedad posible.</div>
