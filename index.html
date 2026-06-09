@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>C2M Dashboard - Ternova</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#F4F3F8;color:#1a1a2e;font-size:14px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#F4F3F8;color:#1a1a2e;font-size:14px}
 .container{max-width:1200px;margin:0 auto;padding:1.5rem}
 
 /* HEADER */
@@ -206,8 +207,8 @@ footer{text-align:center;padding:1.5rem;font-size:11px;color:#9CA3AF}
   <!-- TABS -->
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem">
     <div class="tabs" style="margin-bottom:0">
-      <button class="tab active" id="tab-pc" onclick="setTab('pc')">&#128717; Pack &amp; Carry Bags</button>
-      <button class="tab" id="tab-tb" onclick="setTab('tb')">&#128465; Trash Bags</button>
+      <button class="tab active" id="tab-pc" onclick="setTab('pc')">Pack &amp; Carry Bags</button>
+      <button class="tab" id="tab-tb" onclick="setTab('tb')">Trash Bags</button>
     </div>
     <button onclick="openWhatsApp('el pipeline C2M')" style="display:inline-flex;align-items:center;gap:.5rem;background:#25D366;color:white;border:none;border-radius:10px;padding:.5rem 1rem;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .2s;white-space:nowrap" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white">
@@ -228,7 +229,7 @@ footer{text-align:center;padding:1.5rem;font-size:11px;color:#9CA3AF}
       <div class="panel-title" id="panel-title">< Selecciona una fase</div>
       <div id="panel-body">
         <div class="panel-empty">
-          <div style="font-size:2rem">&#128070;</div>
+          <div style="font-size:2rem"></div>
           <div>Haz clic en cualquier barra<br>del funnel para ver los proyectos</div>
         </div>
       </div>
@@ -238,7 +239,7 @@ footer{text-align:center;padding:1.5rem;font-size:11px;color:#9CA3AF}
   <!-- TABLE -->
   <div class="table-card">
     <div class="table-header">
-      <div class="table-header-title" id="table-title">Proyectos Pack &amp; Carry Bags</div>
+      <div class="table-header-title" id="table-title">ProyectosPack &amp; Carry Bags</div>
       <div class="table-header-count" id="table-count"></div>
     </div>
     <div class="desktop-table">
@@ -313,9 +314,36 @@ const PROJECTS=[
 ];
 
 const KPI_CFG=[
-  {label:'KPI-02 - Pack & Carry',meta:142600,base:149000,opt:430000,baseRatio:1.05,optRatio:3.0,stBase:'amber',stOpt:'green',tagBase:'1.05x Bajo',tagOpt:'3.0x Saludable',color:'#534AB7'},
-  {label:'KPI-01 - Trash Bags Nuevos',meta:1250000,base:149000,opt:761000,baseRatio:0.12,optRatio:0.61,stBase:'red',stOpt:'red',tagBase:'0.12x Critico',tagOpt:'0.61x Critico',color:'#DC2626',note:'Meta no cierra solo con CAM. Llave: WM Mexico.'},
-  {label:'KPI-05 - Fuera de CAM',meta:684000,base:60000,opt:4510000,baseRatio:0.09,optRatio:6.6,stBase:'red',stOpt:'green',tagBase:'0.09x Critico',tagOpt:'6.6x Saludable',color:'#059669',note:'Optimista: WM MX $3MM + El Zorro + DC Col.'},
+  {
+    label:'KPI-02 - Nuevos proyectos Pack & Carry',
+    meta:142600,base:149000,opt:149000,
+    baseRatio:1.05,optRatio:1.05,
+    stBase:'amber',stOpt:'amber',
+    tagBase:'1.05x Bajo',tagOpt:'1.05x Bajo',
+    color:'#534AB7',
+    baseProj:'Gabacha C/S $149K',
+    optProj:'(mismo portafolio - Tela Lluvia es 2027)'
+  },
+  {
+    label:'KPI-01 - Nuevos proyectos Trash Bags',
+    meta:1250000,base:310000,opt:922000,
+    baseRatio:0.25,optRatio:0.74,
+    stBase:'red',stOpt:'red',
+    tagBase:'0.25x Critico',tagOpt:'0.74x Critico',
+    color:'#DC2626',
+    baseProj:'Zeus $240K + Coamesa $70K = $310K',
+    optProj:'Zeus $240K + Coamesa $70K + EPA $500K + La Colonia $112K + Lavanda TBD = $922K+'
+  },
+  {
+    label:'KPI-05 - Venta fuera de CAM',
+    meta:684000,base:60000,opt:4510000,
+    baseRatio:0.09,optRatio:6.6,
+    stBase:'red',stOpt:'green',
+    tagBase:'0.09x Critico',tagOpt:'6.6x Saludable',
+    color:'#059669',
+    baseProj:'Panama $60K',
+    optProj:'WM Mex $3.0M + El Zorro MX $1.0M + DC Col $450K = $4.5M'
+  },
 ];
 
 const PH_KEYS=['F1','F2','F3','F4','F5','F6'];
@@ -349,6 +377,7 @@ function renderKPIs(){
     const ratio=isOpt?k.optRatio:k.baseRatio;
     const st=isOpt?k.stOpt:k.stBase;
     const tag=isOpt?k.tagOpt:k.tagBase;
+    const proj=isOpt?k.optProj:k.baseProj;
     const pct=Math.min(ratio/5*100,100);
     const fc=st==='green'?'#059669':st==='amber'?'#D97706':'#DC2626';
     const bg=st==='green'?'#D1FAE5':st==='amber'?'#FEF3C7':'#FEE2E2';
@@ -365,7 +394,10 @@ function renderKPIs(){
         <div class="kpi-bar-fill" style="width:${pct}%;background:${fc}"></div>
       </div>
       <div class="kpi-ratio"><span style="color:#D1D5DB">0x</span><span style="color:${fc};font-weight:600">${ratio}x / 5x</span></div>
-      ${k.note?`<div class="kpi-note">${k.note}</div>`:''}
+      <div style="margin-top:6px;padding-top:6px;border-top:1px solid #F3F4F6">
+        <div style="font-size:9px;color:#9CA3AF;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">${isOpt?'Optimista':'Base'} incluye:</div>
+        <div style="font-size:9px;color:#374151;line-height:1.5">${proj}</div>
+      </div>
     </div>`;
   }).join('');
 }
@@ -422,7 +454,7 @@ function updateChart(){
 
 function resetPanel(){
   document.getElementById('panel-title').textContent='< Selecciona una fase';
-  document.getElementById('panel-body').innerHTML='<div class="panel-empty"><div style="font-size:2rem">&#128070;</div><div>Haz clic en cualquier barra<br>del funnel para ver los proyectos</div></div>';
+  document.getElementById('panel-body').innerHTML='<div class="panel-empty"><div style="font-size:2rem"></div><div>Haz clic en cualquier barra<br>del funnel para ver los proyectos</div></div>';
 }
 
 function showPhase(idx){
