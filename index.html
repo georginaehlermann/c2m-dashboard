@@ -134,7 +134,7 @@ footer{text-align:center;padding:1.25rem;font-size:10px;color:#9CA3AF}
     </div>
   </div>
 
-  <div class="sec-t">A â€” Proyeccion facturable 2026 vs. meta budget</div>
+  <div class="sec-t">A â€” Proyeccion facturable 2026 vs. meta</div>
   <div class="nota" id="nota-esc"></div>
   <div class="kpi-grid" id="kpi-grid"></div>
 
@@ -254,7 +254,25 @@ function toggleView(){
   document.getElementById('toggle').classList.toggle('on',isOpt);
   document.getElementById('lbl-base').className=isOpt?'tlbl off':'tlbl';
   document.getElementById('lbl-opt').className=isOpt?'tlbl':'tlbl off';
-  renderAll();
+  function showFunnelTip(e, text){
+  var el = document.getElementById('funnel-tooltip');
+  el.innerHTML = text.split('\n').map(function(l,i){ return i===0 ? '<strong>'+l+'</strong>' : '<span style="color:#A5B4FC">'+l+'</span>'; }).join('<br>');
+  el.style.display = 'block';
+  moveFunnelTip(e);
+}
+function moveFunnelTip(e){
+  var el = document.getElementById('funnel-tooltip');
+  var x = e.clientX + 12, y = e.clientY - 10;
+  if(x + 230 > window.innerWidth) x = e.clientX - 230;
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+}
+function hideFunnelTip(){
+  var el = document.getElementById('funnel-tooltip');
+  if(el) el.style.display = 'none';
+}
+
+renderAll();
 }
 
 function renderAll(){
