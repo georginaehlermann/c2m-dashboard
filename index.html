@@ -6,572 +6,459 @@
 <title>C2M Dashboard - Ternova</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#F4F3F8;color:#1a1a2e;font-size:14px}
-.header{background:linear-gradient(135deg,#2D1B69,#534AB7);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.header-brand{color:#C4B5FD;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase}
-.header-title{color:white;font-size:20px;font-weight:700;margin-top:2px}
-.header-right{text-align:right}
-.header-update{color:#A78BFA;font-size:10px}
-.header-week{color:white;font-size:11px;font-weight:600}
-.live{display:flex;align-items:center;gap:5px;justify-content:flex-end;margin-top:3px}
-.live-dot{width:7px;height:7px;border-radius:50%;background:#10B981;animation:pulse 2s infinite}
-.live-txt{color:#10B981;font-size:10px}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.container{max-width:1200px;margin:0 auto;padding:1.5rem}
-.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
-.toggle-box{background:white;border:1px solid #EDE9FE;border-radius:12px;padding:.6rem 1rem;display:flex;align-items:center;gap:.75rem}
-.toggle-lbl{font-size:11px;font-weight:600;color:#534AB7}
-.toggle-lbl.off{color:#9CA3AF;font-weight:400}
-.toggle-track{width:48px;height:26px;background:#C4B5FD;border-radius:99px;position:relative;cursor:pointer;transition:background .3s}
-.toggle-track.on{background:#534AB7}
-.toggle-thumb{width:20px;height:20px;background:white;border-radius:50%;position:absolute;top:3px;left:3px;transition:left .3s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.toggle-track.on .toggle-thumb{left:25px}
-.stats-box{background:white;border:1px solid #EDE9FE;border-radius:12px;padding:.6rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-.stat-label{font-size:11px;color:#9CA3AF}
-.stat-val{font-size:17px;font-weight:700;color:#534AB7}
-.stat-val.blue{color:#1D4ED8}
-.stat-val.green{color:#059669}
-.stat-val span{font-size:11px;font-weight:400;color:#9CA3AF}
-.stat-sep{width:1px;height:32px;background:#EDE9FE}
-.section-title{font-size:11px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.07em;margin:1.25rem 0 .6rem}
-.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:.5rem}
-.pipeline-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem}
-.kpi-card{background:white;border:1px solid #EDE9FE;border-radius:12px;padding:1rem}
-.kpi-label{font-size:10px;font-weight:600;color:#9CA3AF;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
-.kpi-def{font-size:9px;color:#D1D5DB;margin-bottom:.5rem;font-style:italic;line-height:1.4}
-.kpi-val{font-size:22px;font-weight:700}
-.kpi-meta{font-size:11px;color:#9CA3AF;margin-top:2px}
-.kpi-tag{font-size:10px;font-weight:600;padding:3px 8px;border-radius:99px;white-space:nowrap}
-.kpi-bar-wrap{margin-top:8px;margin-bottom:3px}
-.kpi-bar-label{display:flex;justify-content:space-between;font-size:9px;margin-bottom:3px;color:#9CA3AF}
-.kpi-bar-track{height:6px;border-radius:99px;background:#F3F4F6;position:relative}
-.kpi-bar-fill{height:100%;border-radius:99px;transition:width .5s ease;position:relative}
-.kpi-bar-meta{position:absolute;right:0;top:-1px;width:2px;height:8px;background:#9CA3AF;border-radius:99px}
-.tabs{display:flex;gap:.5rem;margin-bottom:1.25rem;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.tabs-left{display:flex;gap:.5rem}
-.tab{padding:.6rem 1.2rem;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid #534AB7;transition:all .2s}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#F4F3F8;color:#1a1a2e;font-size:13px}
+.hdr{background:linear-gradient(135deg,#2D1B69,#534AB7);padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center}
+.hdr-brand{color:#C4B5FD;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase}
+.hdr-title{color:white;font-size:18px;font-weight:700;margin-top:2px}
+.hdr-r{text-align:right}
+.hdr-week{color:white;font-size:10px;font-weight:600}
+.live{display:flex;align-items:center;gap:4px;justify-content:flex-end;margin-top:2px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#10B981;animation:pulse 2s infinite}
+.live-txt{color:#10B981;font-size:9px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.wrap{max-width:1200px;margin:0 auto;padding:1.25rem}
+.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.75rem}
+.toggle-box{background:white;border:1px solid #EDE9FE;border-radius:10px;padding:.5rem .85rem;display:flex;align-items:center;gap:.6rem}
+.tlbl{font-size:10px;font-weight:600;color:#534AB7}
+.tlbl.off{color:#9CA3AF;font-weight:400}
+.ttrack{width:44px;height:24px;background:#C4B5FD;border-radius:99px;position:relative;cursor:pointer;transition:background .3s;flex-shrink:0}
+.ttrack.on{background:#534AB7}
+.tthumb{width:18px;height:18px;background:white;border-radius:50%;position:absolute;top:3px;left:3px;transition:left .3s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.ttrack.on .tthumb{left:23px}
+.stats-box{background:white;border:1px solid #EDE9FE;border-radius:10px;padding:.5rem .85rem;display:flex;align-items:center;gap:.85rem;flex-wrap:wrap}
+.slbl{font-size:10px;color:#9CA3AF}
+.sval{font-size:15px;font-weight:700;color:#534AB7}
+.sval.bl{color:#1D4ED8}.sval.gr{color:#059669}
+.sval span{font-size:10px;font-weight:400;color:#9CA3AF}
+.ssep{width:1px;height:28px;background:#EDE9FE}
+.sec-t{font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.07em;margin:.85rem 0 .35rem}
+.nota{font-size:9px;color:#6B7280;padding:5px 8px;background:#FAFAFA;border-radius:7px;border:1px solid #F3F4F6;margin-bottom:.6rem;line-height:1.4}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:.5rem}
+.pip-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1rem}
+.card{background:white;border:1px solid #EDE9FE;border-radius:11px;padding:.9rem}
+.klbl{font-size:9px;font-weight:600;color:#9CA3AF;text-transform:uppercase;letter-spacing:.06em;margin-bottom:1px}
+.kdef{font-size:8px;color:#C4B5FD;margin-bottom:.4rem;font-style:italic;line-height:1.35}
+.kval{font-size:20px;font-weight:700}
+.kmeta{font-size:10px;color:#9CA3AF;margin-top:1px}
+.ktag{font-size:9px;font-weight:600;padding:2px 7px;border-radius:99px;white-space:nowrap}
+.btrack{height:5px;border-radius:99px;background:#F3F4F6;position:relative;margin:5px 0 2px;overflow:hidden}
+.bfill{height:100%;border-radius:99px;transition:width .45s}
+.bmeta-marker{position:absolute;right:0;top:-3px;width:2px;height:11px;background:#374151;border-radius:1px}
+.kincl{font-size:8px;color:#374151;margin-top:4px;line-height:1.45;padding-top:4px;border-top:1px solid #F3F4F6}
+.tabs{display:flex;gap:.45rem;margin-bottom:1rem;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.tab{padding:.45rem 1rem;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid #534AB7;transition:all .2s}
 .tab.active{background:#534AB7;color:white}
 .tab:not(.active){background:white;color:#534AB7}
-.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}
-.chart-card{background:white;border:1px solid #EDE9FE;border-radius:14px;padding:1rem}
-.chart-title{font-size:10px;font-weight:600;color:#9CA3AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
-.chart-hint{font-size:10px;color:#A78BFA;margin-bottom:.75rem}
-.chart-wrap{width:100%;height:220px;position:relative}
-.panel-title{font-size:10px;font-weight:600;color:#9CA3AF;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem}
-.panel-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;color:#9CA3AF;font-size:12px;text-align:center;gap:.5rem}
-.panel-list{display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto;padding-right:4px}
-.panel-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid #EDE9FE;cursor:pointer;transition:background .15s;background:white}
-.panel-item:hover{background:#F5F3FF}
-.panel-item-name{font-size:12px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.panel-item-sub{font-size:10px;color:#9CA3AF;margin-top:1px}
-.panel-item-val{font-size:11px;font-weight:700;color:#534AB7;flex-shrink:0}
-.panel-item-type{font-size:9px;padding:1px 5px;border-radius:99px;margin-top:2px;text-align:right}
-.table-card{background:white;border:1px solid #EDE9FE;border-radius:14px;overflow:hidden;margin-bottom:1.5rem}
-.table-header{padding:.85rem 1.25rem;border-bottom:1px solid #F3F4F6;display:flex;justify-content:space-between;align-items:center}
-.table-header-title{font-size:13px;font-weight:600}
-.table-header-count{font-size:11px;color:#9CA3AF}
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{text-align:left;padding:.6rem 1rem;font-size:10px;font-weight:600;color:#9CA3AF;text-transform:uppercase;letter-spacing:.06em;background:#FAFAFA;border-bottom:1px solid #F3F4F6}
-td{padding:.7rem 1rem;border-bottom:1px solid #F9FAFB;vertical-align:middle}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}
+.cc{background:white;border:1px solid #EDE9FE;border-radius:12px;padding:.9rem}
+.ct{font-size:9px;font-weight:600;color:#9CA3AF;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.ch{font-size:9px;color:#A78BFA;margin-bottom:.5rem}
+.pt{font-size:9px;font-weight:600;color:#9CA3AF;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem}
+.pe{display:flex;flex-direction:column;align-items:center;justify-content:center;height:170px;color:#9CA3AF;font-size:11px;text-align:center;gap:.4rem}
+.pl{display:flex;flex-direction:column;gap:5px;max-height:195px;overflow-y:auto;padding-right:2px}
+.pi{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;border:1px solid #EDE9FE;cursor:pointer;background:white;transition:background .12s}
+.pi:hover{background:#F5F3FF}
+.pn{font-size:11px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ps{font-size:9px;color:#9CA3AF;margin-top:1px}
+.pv{font-size:10px;font-weight:700;color:#534AB7;flex-shrink:0}
+.tc{background:white;border:1px solid #EDE9FE;border-radius:12px;overflow:hidden;margin-bottom:1.25rem}
+.th-row{padding:.7rem 1rem;border-bottom:1px solid #F3F4F6;display:flex;justify-content:space-between;align-items:center}
+.th-t{font-size:12px;font-weight:600}
+.th-c{font-size:10px;color:#9CA3AF}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{text-align:left;padding:.5rem .75rem;font-size:9px;font-weight:600;color:#9CA3AF;text-transform:uppercase;letter-spacing:.05em;background:#FAFAFA;border-bottom:1px solid #F3F4F6}
+td{padding:.55rem .75rem;border-bottom:1px solid #F9FAFB;vertical-align:middle}
 tr:hover td{background:#F9F8FF}
 tr:last-child td{border-bottom:none}
-.td-name{font-weight:600;color:#1a1a2e}
-.td-sub{font-size:10px;color:#9CA3AF;margin-top:1px}
-.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:6px;white-space:nowrap}
-.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
-.dot-green{background:#10B981}.dot-amber{background:#F59E0B}.dot-red{background:#EF4444}.dot-gray{background:#9CA3AF}.dot-blue{background:#3B82F6}
-.ph-f1{background:#EDE9FE;color:#5B21B6}.ph-f2{background:#DBEAFE;color:#1D4ED8}.ph-f3{background:#FEF3C7;color:#92400E}
-.ph-f4{background:#FCE7F3;color:#9D174D}.ph-f5{background:#D1FAE5;color:#065F46}
-.ty-incr{background:#D1FAE5;color:#065F46}.ty-prot{background:#DBEAFE;color:#1E40AF}.ty-hold{background:#F3F4F6;color:#4B5563}
-.btn-detail{font-size:11px;font-weight:600;padding:4px 10px;border-radius:8px;border:1.5px solid #C4B5FD;color:#534AB7;background:white;cursor:pointer;white-space:nowrap}
-.btn-detail:hover{background:#F5F3FF}
-.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100;backdrop-filter:blur(3px);align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto}
-.modal-backdrop.open{display:flex}
-.modal-box{background:white;border-radius:16px;width:100%;max-width:620px;margin:auto;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.25)}
-.modal-hdr{background:linear-gradient(135deg,#2D1B69,#534AB7);padding:1.25rem 1.5rem}
-.modal-badge{font-size:10px;font-weight:600;color:#C4B5FD;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
-.modal-title{color:white;font-weight:700;font-size:17px;line-height:1.3}
-.modal-obj{color:#C4B5FD;font-size:11px;margin-top:6px;line-height:1.6}
-.modal-meta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}
-.modal-meta-item{background:rgba(255,255,255,.15);border-radius:8px;padding:5px 10px}
-.modal-meta-lbl{color:#C4B5FD;font-size:10px}
-.modal-meta-val{color:white;font-weight:600;font-size:12px;margin-top:1px}
-.modal-body{padding:1.25rem;display:flex;flex-direction:column;gap:.75rem}
-.modal-block{border-radius:10px;padding:.85rem 1rem}
-.modal-block-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem}
-.modal-block li{font-size:11px;display:flex;gap:6px;margin-bottom:4px;line-height:1.5;list-style:none}
-.modal-close{background:none;border:none;color:rgba(255,255,255,.7);font-size:18px;cursor:pointer;margin-left:.75rem;flex-shrink:0}
-.m-card{background:white;border:1px solid #EDE9FE;border-radius:12px;padding:.85rem;margin-bottom:.5rem}
-.m-card-btn{width:100%;margin-top:.6rem;padding:.5rem;border-radius:8px;border:1.5px solid #C4B5FD;color:#534AB7;background:white;font-size:11px;font-weight:600;cursor:pointer}
-footer{text-align:center;padding:1.5rem;font-size:11px;color:#9CA3AF}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-thumb{background:#C4B5FD;border-radius:99px}
-@media(max-width:700px){
-  .kpi-grid{grid-template-columns:1fr}
-  .pipeline-grid{grid-template-columns:1fr}
-  .charts-grid{grid-template-columns:1fr}
-  .chart-wrap{height:180px}
-  .desktop-table{display:none}
-  .mobile-cards{display:block}
-  .container{padding:1rem}
-  .header{padding:.75rem 1rem}
-  .header-title{font-size:16px}
+.tn{font-weight:600;color:#1a1a2e;font-size:11px}
+.ts{font-size:9px;color:#9CA3AF;margin-top:1px}
+.badge{display:inline-block;font-size:9px;font-weight:600;padding:2px 6px;border-radius:5px;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dg{background:#10B981}.da{background:#F59E0B}.dr{background:#EF4444}.dgr{background:#9CA3AF}.db{background:#3B82F6}
+.ph1{background:#EDE9FE;color:#5B21B6}.ph2{background:#DBEAFE;color:#1D4ED8}.ph3{background:#FEF3C7;color:#92400E}
+.ph4{background:#FCE7F3;color:#9D174D}.ph5{background:#D1FAE5;color:#065F46}
+.ti{background:#D1FAE5;color:#065F46}.tp{background:#DBEAFE;color:#1E40AF}.th{background:#F3F4F6;color:#4B5563}
+.btn-d{font-size:10px;font-weight:600;padding:3px 8px;border-radius:7px;border:1px solid #C4B5FD;color:#534AB7;background:white;cursor:pointer;white-space:nowrap}
+.btn-d:hover{background:#F5F3FF}
+.mb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto}
+.mb.open{display:flex}
+.mbox{background:white;border-radius:14px;width:100%;max-width:580px;margin:auto;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.mhdr{background:linear-gradient(135deg,#2D1B69,#534AB7);padding:1rem 1.25rem}
+.mbadge{font-size:9px;font-weight:600;color:#C4B5FD;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.mtitle{color:white;font-weight:700;font-size:15px;line-height:1.3}
+.mobj{color:#C4B5FD;font-size:10px;margin-top:5px;line-height:1.5}
+.mmrow{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.6rem}
+.mmi{background:rgba(255,255,255,.15);border-radius:7px;padding:4px 8px}
+.mmil{color:#C4B5FD;font-size:9px}
+.mmiv{color:white;font-weight:600;font-size:11px;margin-top:1px}
+.mbody{padding:1rem;display:flex;flex-direction:column;gap:.6rem}
+.mbl{border-radius:9px;padding:.75rem .9rem}
+.mblt{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem}
+.mbl li{font-size:10px;display:flex;gap:5px;margin-bottom:4px;line-height:1.45;list-style:none}
+.mcl{background:none;border:none;color:rgba(255,255,255,.7);font-size:16px;cursor:pointer;margin-left:.5rem;flex-shrink:0;padding:0}
+footer{text-align:center;padding:1.25rem;font-size:10px;color:#9CA3AF}
+@media(max-width:680px){
+  .kpi-grid,.pip-grid,.cg{grid-template-columns:1fr}
+  .wrap{padding:.75rem}
 }
-@media(min-width:701px){
-  .desktop-table{display:block}
-  .mobile-cards{display:none}
-}
-.nota-def{font-size:9px;color:#9CA3AF;padding:6px 10px;background:#FAFAFA;border-radius:8px;border:1px solid #F3F4F6;margin-bottom:1rem;line-height:1.5}
 </style>
 </head>
 <body>
 
-<header class="header">
+<header class="hdr">
   <div>
-    <div class="header-brand">TERNOVA - CONSUMO MASIVO</div>
-    <div class="header-title">Concept to Market - Pipeline Dashboard</div>
+    <div class="hdr-brand">TERNOVA Â· CONSUMO MASIVO</div>
+    <div class="hdr-title">Concept to Market â€” Pipeline Dashboard</div>
   </div>
-  <div class="header-right">
-    <div class="header-update">Actualizado</div>
-    <div class="header-week">Semana 2 - Jun 2026</div>
+  <div class="hdr-r">
+    <div class="hdr-week">Semana 2 Â· Jun 2026</div>
     <div class="live"><div class="live-dot"></div><span class="live-txt">En vivo</span></div>
   </div>
 </header>
 
-<div class="container">
-  <div class="top-bar" style="margin-top:1.25rem">
+<div class="wrap">
+
+  <div class="top-bar">
     <div class="toggle-box">
-      <span style="font-size:11px;font-weight:500;color:#6B7280;text-transform:uppercase;letter-spacing:.07em">Escenario:</span>
-      <span class="toggle-lbl" id="lbl-base">Base</span>
-      <div class="toggle-track" id="toggle" onclick="toggleView()"><div class="toggle-thumb"></div></div>
-      <span class="toggle-lbl off" id="lbl-opt">Optimista</span>
+      <span style="font-size:10px;font-weight:500;color:#6B7280;text-transform:uppercase;letter-spacing:.07em">Escenario:</span>
+      <span class="tlbl" id="lbl-base">Base</span>
+      <div class="ttrack" id="toggle" onclick="toggleView()"><div class="tthumb"></div></div>
+      <span class="tlbl off" id="lbl-opt">Optimista</span>
     </div>
     <div class="stats-box">
-      <div><div class="stat-label">Pipeline Total C2M</div><div class="stat-val">$29.6M <span>- 18 proyectos</span></div></div>
-      <div class="stat-sep"></div>
-      <div><div class="stat-label">Proteccion del negocio</div><div class="stat-val blue">$23.9M <span>- 5 proy.</span></div></div>
-      <div class="stat-sep"></div>
-      <div><div class="stat-label">Venta incremental</div><div class="stat-val green">$5.6M <span>- 13 proy.</span></div></div>
+      <div><div class="slbl">Pipeline Total C2M</div><div class="sval">$29.6M <span>18 proyectos</span></div></div>
+      <div class="ssep"></div>
+      <div><div class="slbl">Proteccion negocio</div><div class="sval bl">$23.9M <span>5 proy.</span></div></div>
+      <div class="ssep"></div>
+      <div><div class="slbl">Venta incremental</div><div class="sval gr">$5.6M <span>13 proy.</span></div></div>
     </div>
   </div>
 
-  <!-- SECCION A: KPIs vs Meta 2026 -->
-  <div class="section-title">A â€” Proyeccion facturable 2026 vs. meta budget</div>
-  <div class="nota-def" id="nota-escenario"></div>
+  <div class="sec-t">A â€” Proyeccion facturable 2026 vs. meta budget</div>
+  <div class="nota" id="nota-esc"></div>
   <div class="kpi-grid" id="kpi-grid"></div>
 
-  <!-- SECCION B: Pipeline total y ventas reales -->
-  <div class="section-title">B â€” Pipeline total y ventas reales acumuladas</div>
-  <div class="pipeline-grid" id="pipeline-grid"></div>
+  <div class="sec-t">B â€” Pipeline total y ventas reales acumuladas</div>
+  <div class="pip-grid" id="pip-grid"></div>
 
   <div class="tabs">
-    <div class="tabs-left">
+    <div style="display:flex;gap:.45rem">
       <button class="tab active" id="tab-pc" onclick="setTab('pc')">Pack &amp; Carry Bags</button>
       <button class="tab" id="tab-tb" onclick="setTab('tb')">Trash Bags</button>
     </div>
-    <button onclick="openWhatsApp('el pipeline C2M')" style="display:inline-flex;align-items:center;gap:.5rem;background:#25D366;color:white;border:none;border-radius:10px;padding:.5rem 1rem;font-size:12px;font-weight:600;cursor:pointer">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <button onclick="openWA('el pipeline C2M')" style="display:inline-flex;align-items:center;gap:.4rem;background:#25D366;color:white;border:none;border-radius:9px;padding:.45rem .9rem;font-size:11px;font-weight:600;cursor:pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Consultar con Innovacion
     </button>
   </div>
 
-  <div class="charts-grid">
-    <div class="chart-card">
-      <div class="chart-title">Funnel C2M - Proyectos por fase</div>
-      <div class="chart-hint">Haz clic en una barra para ver los proyectos</div>
-      <div id="funnel-bars" style="padding-top:4px"></div>
+  <div class="cg">
+    <div class="cc">
+      <div class="ct">Funnel C2M â€” Proyectos por fase</div>
+      <div class="ch">Haz clic en una barra para ver los proyectos</div>
+      <div id="funnel-bars"></div>
     </div>
-    <div class="chart-card">
-      <div class="panel-title" id="panel-title">&lt; Selecciona una fase</div>
+    <div class="cc">
+      <div class="pt" id="panel-title">&lt; Selecciona una fase</div>
       <div id="panel-body">
-        <div class="panel-empty">
-          <div style="font-size:2rem">&#128070;</div>
-          <div>Haz clic en cualquier barra<br>del funnel para ver los proyectos</div>
-        </div>
+        <div class="pe"><div style="font-size:2rem">ðŸ‘†</div><div>Haz clic en cualquier barra<br>del funnel para ver los proyectos</div></div>
       </div>
     </div>
   </div>
 
-  <div class="table-card">
-    <div class="table-header">
-      <div class="table-header-title" id="table-title">Proyectos Pack &amp; Carry Bags</div>
-      <div class="table-header-count" id="table-count"></div>
+  <div class="tc">
+    <div class="th-row">
+      <div class="th-t" id="table-title">Proyectos Pack &amp; Carry Bags</div>
+      <div class="th-c" id="table-cnt"></div>
     </div>
-    <div class="desktop-table">
+    <div style="overflow-x:auto">
       <table><thead><tr>
-        <th>Proyecto</th><th>Pais</th><th>Fase</th><th>Tipo</th><th style="text-align:right">Proyeccion 2026</th><th style="text-align:right">Real facturado</th><th></th>
+        <th>Proyecto</th><th>Pais</th><th>Fase</th><th>Tipo</th><th style="text-align:right">Proyeccion 2026</th><th style="text-align:right">Facturado real</th><th></th>
       </tr></thead><tbody id="proj-tbody"></tbody></table>
     </div>
-    <div class="mobile-cards" id="proj-mobile"></div>
   </div>
+
 </div>
 
-<div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
-  <div class="modal-box">
-    <div class="modal-hdr">
+<!-- MODAL -->
+<div class="mb" id="mb" onclick="closeMOut(event)">
+  <div class="mbox">
+    <div class="mhdr">
       <div style="display:flex;align-items:flex-start;justify-content:space-between">
         <div style="flex:1">
-          <div class="modal-badge" id="modal-badge"></div>
-          <div class="modal-title" id="modal-title"></div>
-          <div class="modal-obj" id="modal-obj"></div>
+          <div class="mbadge" id="m-badge"></div>
+          <div class="mtitle" id="m-title"></div>
+          <div class="mobj" id="m-obj"></div>
         </div>
-        <button class="modal-close" onclick="closeModalBtn()">X</button>
+        <button class="mcl" onclick="closeM()">âœ•</button>
       </div>
-      <div class="modal-meta" id="modal-meta"></div>
+      <div class="mmrow" id="m-meta"></div>
     </div>
-    <div class="modal-body" id="modal-body"></div>
+    <div class="mbody" id="m-body"></div>
   </div>
 </div>
 
-<script>
-
-</script>
+<footer>Ternova Consumo Masivo Â· C2M Dashboard v2.1 Â· Jun 2026 Â· Geo Ehlermann Â· Marketing EstratÃ©gico</footer>
 
 <script>
 const PROJECTS=[
-  {id:'p1',div:'pc',name:'Gabacha Transparente C/S Impresion',country:'ES - NI',phase:'F5',phaseLabel:'F5 - Lanzamiento',type:'incr',typeLabel:'Incremental',impact:149000,impactOpt:149000,realFact:0,status:'green',statusLabel:'Activo',detail:{obj:'Piloto de sourcing de gabacha transparente para validar viabilidad comercial en ES y NI.',margen:'>=15%',vol:'8 t/mes regimen',avances:['Go To Market listo para ambos paises.','Creacion de nuevos part ID para ambos escenarios.','Precios aprobados por comite para El Salvador y NIC.','Reempaquetado ES 90% de avance - finaliza viernes 12 junio.','Reempaquetado NIC con 20% de avance (100 fardos).'],riesgos:['Precio NIC puede no ser aceptado por el mercado.','Pendiente subir precio en Sistema para lista Nicaragua.'],pasos:['Inicio de Comercializacion y monitoreo del piloto en ambos paises.','Evaluacion de nueva cotizacion del proveedor.','Pendiente subir precio en Sistema para lista Nicaragua.']}},
-  {id:'p2',div:'pc',name:'Rebranding Linea Transparente',country:'ES - NI - CAM',phase:'F5',phaseLabel:'F5 ES - F3 CAM',type:'prot',typeLabel:'Proteccion UB',impact:10517760,impactOpt:10517760,realFact:0,status:'amber',statusLabel:'ES F5 - CAM F3',detail:{obj:'Blindar valor de marca TERMO. Protege $10.5MM en venta actual.',margen:'Blindaje $10.5MM',vol:'92 SKUs - CAM completo',avances:['Migracion ES: avance del 30% migrado.','Reempaquetado ES 90% avance.','Gestion con logistica para flujo express con proveedor.'],riesgos:['CAM con imagen mixta hasta que concluya la migracion.','Gantt definitivo CAM pendiente.'],pasos:['Entrega Gantt con tiempos y bloques para migracion completa.','Lanzamiento interno con equipo de ventas por pais.']}},
-  {id:'p3',div:'pc',name:'Tela Lluvia Expansion CAM',country:'CAM',phase:'F1',phaseLabel:'F1 - Entend. Cliente',type:'incr',typeLabel:'Incremental 2027',impact:0,impactOpt:0,realFact:0,status:'blue',statusLabel:'Analisis TAM 2027',detail:{obj:'Habilitante 2027 con CAPEX coextrusor. Analisis TAM/SAM CAM. No impacta meta 2026.',margen:'TBD - 2027',vol:'TBD segun geografia',avances:['BI ejecutando analisis TAM por pais.','Sesion con comercial semana 22 de junio.'],riesgos:['No genera impacto en meta 2026. Condicionado a CAPEX coextrusor.'],pasos:['Sesion con comercial semana 22 junio.','Q3: Definicion de variables clave para expansion.']}},
-  {id:'t1',div:'tb',name:'WM Mexico Great Value',country:'Mexico',phase:'F3',phaseLabel:'F3 - Factibilidad',type:'incr',typeLabel:'Incr. fuera CAM',impact:0,impactOpt:750000,realFact:0,status:'amber',statusLabel:'SEDEMA en tramite',detail:{obj:'Entrada a Mexico con marca privada GV. Potencial $3M FY - capturable 2026: $750K (oct-dic, 3 meses). La llave del sistema.',margen:'TBD - Trucost',vol:'120 t primera orden',avances:['SEDEMA ingresada al tramite.','Muestras 3 calibres en lab NYCE - resultado ~14 jun.','Vendor Code entregado por WM.'],riesgos:['URGENTE: Operador logistico sin seleccionar.','URGENTE: SEDEMA sin fecha clara de cierre.','Deadline artes WM: 25 junio. Si no cierra, Gantt corre a noviembre.','Entrega real proyectada: oct-dic 2026 = $750K capturable, no $3M FY.'],pasos:['Confirmar SEDEMA formalmente con Luz Amanda.','Resultado laboratorio NYCE ~14 jun.','Visita a MX para concluir negociaciones con operador logistico.']}},
-  {id:'t2',div:'tb',name:'Zeus Linea Economica HN+ES+GT',country:'HN - ES - GT',phase:'F4',phaseLabel:'F4>F5 - Lanzamiento',type:'incr',typeLabel:'Incremental CAM',impact:240000,impactOpt:240000,realFact:0,status:'green',statusLabel:'1a OC 22-25 jun',detail:{obj:'Bolsa economica canal tradicional. Piloto Mayab HN con expansion ES y GT.',margen:'Apretado - foco en volumen',vol:'8 t/mes HN - 18 t Q4',avances:['Apertura ZEUS SV canal tradicional confirmada.','1ra OC Mayab esperada 22-25 junio.','Forecast: 8t HN - proyeccion Q4 2026 = 18t con SV.'],riesgos:['Sin incentivos a fuerza de ventas - margen apretado.','Corte hipotesis: agosto 2026.'],pasos:['Entrega ruta de precios y forecast SV esta semana.','Seguimiento activo para primera OC con Mayab.']}},
-  {id:'t3',div:'tb',name:'Coamesa Costa Rica',country:'Costa Rica',phase:'F4',phaseLabel:'F4 - Pre-GTM',type:'incr',typeLabel:'Incremental CAM',impact:70000,impactOpt:70000,realFact:0,status:'green',statusLabel:'Despacho inminente',detail:{obj:'Sobreempaque bolsas para Coamesa CR. Primer lote minimo producido.',margen:'Tasa igual a Dollar City',vol:'8 t/mes regimen',avances:['Cartillas firmadas por Marilyn - en camino.','1ra Produccion PT completada - despacho proxima semana.','10% de incremento ya trasladado al cliente.'],riesgos:['Primer pedido = lote minimo - volumen bajo al inicio.'],pasos:['Gestionar OC con Marilyn una vez PT disponible en bodega.']}},
-  {id:'t4',div:'tb',name:'WM Embosado MP Great Value',country:'CAM',phase:'F4',phaseLabel:'F4 - Pre-GTM',type:'prot',typeLabel:'Proteccion UB',impact:933000,impactOpt:933000,realFact:0,status:'green',statusLabel:'1ra prod. completa',detail:{obj:'Embosado GV. Proteccion del negocio. Incremental delta vs. China +$30K / +46% vs 2025.',margen:'Delta vs. sourcing China',vol:'21 t primera produccion',avances:['Primeras entregas junio.','Apertura trade logistico WM el 15 jun.','Desde julio: 18t/mes.'],riesgos:['Clasificacion formal (proteccion vs. incremental) pendiente con Finanzas.','Necesitan 27 tons/mes de jun a dic para cerrar el anio.'],pasos:['Asegurar ramp-up de produccion para sostener entregas desde junio.','Definir clasificacion formal con Finanzas.']}},
-  {id:'t5',div:'tb',name:'SPM > Termo Panama',country:'Panama',phase:'F5',phaseLabel:'F5 - Lanzamiento',type:'incr',typeLabel:'Incr. fuera CAM',impact:466000,impactOpt:466000,realFact:5000,status:'green',statusLabel:'1ra OC facturada',detail:{obj:'Cambio de marca para canal tradicional Panama (Cofrey). Primer OC facturada.',margen:'Riesgo logistico por bajo volumen',vol:'Low - objetivo crecer proxima OC',avances:['1ra OC facturada - $5K mes 1.','JD en visita para negociar mayor volumen con distribuidora Escofery.'],riesgos:['Volumen OC bajo - operacion debe ser rentable, no solo transaccional.'],pasos:['JD negocia mayor volumen con Escofery.','Hipotesis: viabilidad del modelo Escofery, no solo el producto.']}},
-  {id:'t6',div:'tb',name:'GV Cambio de Marca (doblada + rollo)',country:'CAM',phase:'F5',phaseLabel:'F5 Etapa 1 - F3 Etapa 2',type:'prot',typeLabel:'Proteccion UB',impact:12500000,impactOpt:12500000,realFact:0,status:'blue',statusLabel:'Etapa 2 en curso',detail:{obj:'Cambio Supermax > GV. Blindaje $12.5MM. Etapa 2 (rollo) en F3.',margen:'Blindaje $12.5MM',vol:'5 articulos migrados',avances:['FASE 1 CERRADA. Lecciones aprendidas completadas (1 jun).','Primera fase: 60 semanas totales (63% entre aprobaciones y artes WM).'],riesgos:['Riesgo de saturacion de preprensa si artes F2 Rollo y WM Mexico entran en paralelo.'],pasos:['Seguimiento OC en filiales (sem. 22 jun).','Activar flujo adaptacion artes Etapa 2 una vez recibidas de WM.']}},
-  {id:'t7',div:'tb',name:'El Zorro MX',country:'Mexico',phase:'F3',phaseLabel:'F3 - Factibilidad',type:'incr',typeLabel:'Incr. fuera CAM',impact:0,impactOpt:0,realFact:0,status:'amber',statusLabel:'Reactivado jun-26',detail:{obj:'Linea economica canal mayorista abarrotero MX. Sin fecha de impacto 2026 confirmada.',margen:'TBD',vol:'TBD',avances:['Clau Romero: comunicacion activa con cliente.','Zeus como producto fit para perfil mayorista.'],riesgos:['Modelo logistico aun no definido.','Sin fecha confirmada de impacto 2026.'],pasos:['Recotizar para alcanzar precio CF de $35.','Definir modelo logistico y bodega Termo.']}},
-  {id:'t8',div:'tb',name:'Dollar City Colombia',country:'Colombia',phase:'F1',phaseLabel:'F0/F1 - Radar',type:'incr',typeLabel:'Incr. fuera CAM',impact:0,impactOpt:0,realFact:0,status:'amber',statusLabel:'Research normativa',detail:{obj:'Reformular para normativa OXO Colombia. Sin impacto 2026 confirmado.',margen:'TBD',vol:'TBD',avances:['Research supermercados colombianos en proceso.','Estudio normativa aditivos Colombia en proceso.'],riesgos:['Producto actual no cumple normativa COL.','Formulario C2M aun no completado.'],pasos:['Completar formulario de ingreso al funnel C2M esta semana.','Buscar aditivo compatible con legislacion COL.']}},
-  {id:'t9',div:'tb',name:'EPA Centroamerica',country:'CAM',phase:'F2',phaseLabel:'F2 - Ideacion',type:'incr',typeLabel:'Incremental CAM',impact:0,impactOpt:500000,realFact:0,status:'amber',statusLabel:'Reactivado',detail:{obj:'Activar canal EPA con excedente de capacidad 80-100 t/mes. $500K potencial.',margen:'TBD',vol:'TBD',avances:['Secuencia definida: Caro ingresa GAP base - Cris cotiza - ruta de precios - JD y Josue van con cliente.'],riesgos:['Si se toca a EPA sin precio y fecha: el cliente pedira el producto de inmediato.','Validar capacidad productiva antes de comprometerse.'],pasos:['Caro ingresa GAP base esta semana.','Cris cotiza una vez con el GAP base revisado.']}},
-  {id:'t10',div:'tb',name:'La Colonia Nicaragua',country:'Nicaragua',phase:'F2',phaseLabel:'F2 - Reactivado',type:'incr',typeLabel:'Incremental CAM',impact:0,impactOpt:112000,realFact:0,status:'amber',statusLabel:'Reactivado',detail:{obj:'Reactivar marca privada La Colonia con excedente de capacidad.',margen:'TBD',vol:'TBD',avances:['Reactivado por instruccion de Juan Diego.'],riesgos:['Alcance y responsable pendientes.'],pasos:['Confirmar responsable comercial.','Definir alcance y portafolio inicial.']}},
-  {id:'t11',div:'tb',name:'Soriana Mexico',country:'Mexico',phase:'F3',phaseLabel:'F3 - Baja intensidad',type:'incr',typeLabel:'Incr. fuera CAM',impact:0,impactOpt:0,realFact:0,status:'amber',statusLabel:'Brief interno cliente',detail:{obj:'Marca privada Soriana Mexico. Sin impacto 2026 confirmado.',margen:'TBD',vol:'TBD',avances:['Soriana levantando brief interno.','Ternova posicionandose como experto en categoria CAM.'],riesgos:['Tomara mas tiempo que El Zorro.'],pasos:['Clau orienta al tier correcto antes de que definan que piden.']}},
-  {id:'t12',div:'tb',name:'Sostenibilidad Sobreempaque WM CA',country:'CAM',phase:'F1',phaseLabel:'F1 - Entend. Cliente',type:'incr',typeLabel:'2027',impact:0,impactOpt:0,realFact:0,status:'blue',statusLabel:'Kickoff 4-jun',detail:{obj:'Sobreempaque 100% reciclable - pilar economia circular WM. Resultado esperado: jun 2027.',margen:'N/A - 2027',vol:'N/A',avances:['Lotes controlados con MC iniciados (3 SKUs TERMO).','Kickoff con Tatiana WM: 4 jun.'],riesgos:['Sin Gantt madre WM CAM.'],pasos:['Cerrar Gantt integrado post kickoff Tatiana.']}},
-  {id:'t13',div:'tb',name:'Bolsa Aroma Lavanda WM CA',country:'CAM',phase:'F3',phaseLabel:'F3 - Factibilidad',type:'incr',typeLabel:'Incremental',impact:0,impactOpt:0,realFact:0,status:'blue',statusLabel:'Formulario I+D OK',detail:{obj:'Bolsa negra con aroma lavanda para WM CA. Activacion objetivo oct 2026.',margen:'TBD',vol:'~36 TON estimado',avances:['Ingresada formalmente al funnel.','Ruta de precios enviada a comercial.'],riesgos:['Timeline apretado: F3 a comercializacion en octubre = 4 meses.'],pasos:['Cerrar Gantt final y consolidar en Gantt madre WM CA.']}},
-  {id:'t14',div:'tb',name:'Arquitectura Marca Comercial TERMO',country:'CAM',phase:'F1',phaseLabel:'F1 - Entend. Cliente',type:'incr',typeLabel:'Estrategico',impact:0,impactOpt:0,realFact:0,status:'blue',statusLabel:'Diagnostico en proceso',detail:{obj:'Redisenar portafolio y rol de marca TERMO en CAM.',margen:'N/A',vol:'N/A',avances:['Etapa 2: diagnostico financiero y competitivo.'],riesgos:['Retraso afecta decisiones portafolio 2027.'],pasos:['Entrega diagnostico: finales de junio.']}},
-  {id:'t15',div:'tb',name:'Poopy Bags',country:'CAM',phase:'F2',phaseLabel:'F2 - On Hold',type:'hold',typeLabel:'On Hold',impact:0,impactOpt:0,realFact:0,status:'gray',statusLabel:'On Hold',detail:{obj:'Bolsas para mascotas - pausado por capacidad.',margen:'TBD',vol:'TBD',avances:['En sistema desde marzo 2026.'],riesgos:['Sin fecha de revision.'],pasos:['Revisar si excedente de capacidad permite reactivar.']}},
+  {id:'p1',div:'pc',name:'Gabacha Transparente C/S Impresion',country:'ES - NI',phase:'F5',phaseLabel:'F5 - Lanzamiento',phaseCls:'ph5',type:'incr',typeLabel:'Incremental',typeCls:'ti',impact:149000,impactOpt:149000,realFact:0,dotCls:'dg',statusLabel:'Activo',detail:{obj:'Piloto de gabacha transparente para validar viabilidad comercial en ES y NI.',margen:'>=15%',vol:'8 t/mes',avances:['GTM listo para ambos paises.','Precios aprobados por comite.','Reempaquetado ES 90% avance.','NIC: 100 fardos en proceso.'],riesgos:['Precio NIC puede no ser aceptado.','Pendiente subir precio en sistema NIC.'],pasos:['Inicio comercializacion y monitoreo.','Evaluacion cotizacion proveedor.','Subir precio sistema Nicaragua.']}},
+  {id:'p2',div:'pc',name:'Rebranding Linea Transparente',country:'ES - NI - CAM',phase:'F5',phaseLabel:'F5 ES / F3 CAM',phaseCls:'ph5',type:'prot',typeLabel:'Proteccion UB',typeCls:'tp',impact:10517760,impactOpt:10517760,realFact:0,dotCls:'da',statusLabel:'ES F5 / CAM F3',detail:{obj:'Blindar valor marca TERMO. Protege $10.5MM en venta actual.',margen:'Blindaje $10.5MM',vol:'92 SKUs CAM',avances:['ES: 30% migrado.','Reempaquetado ES 90% avance.','Flujo express con logistica activo.'],riesgos:['CAM con imagen mixta hasta cerrar migracion.','Gantt CAM pendiente.'],pasos:['Entrega Gantt bloques CAM.','Lanzamiento interno por pais.']}},
+  {id:'p3',div:'pc',name:'Tela Lluvia Expansion CAM',country:'CAM',phase:'F1',phaseLabel:'F1 - Entend. Cliente',phaseCls:'ph1',type:'incr',typeLabel:'Incremental 2027',typeCls:'ti',impact:0,impactOpt:0,realFact:0,dotCls:'db',statusLabel:'Analisis TAM 2027',detail:{obj:'Habilitante 2027 con CAPEX coextrusor. No impacta meta 2026.',margen:'TBD 2027',vol:'TBD',avances:['BI ejecutando TAM por pais.','Sesion comercial sem 22 jun.'],riesgos:['Condicionado a CAPEX coextrusor.'],pasos:['Sesion comercial sem 22 jun.','Q3: definir variables expansion.']}},
+  {id:'t1',div:'tb',name:'WM Mexico Great Value',country:'Mexico',phase:'F3',phaseLabel:'F3 - Factibilidad',phaseCls:'ph3',type:'incr',typeLabel:'Fuera CAM',typeCls:'ti',impact:0,impactOpt:750000,realFact:0,dotCls:'da',statusLabel:'SEDEMA en tramite',detail:{obj:'Entrada MX marca privada GV. Potencial $3M FY - capturable 2026: $750K (oct-dic 3 meses). La llave del sistema.',margen:'TBD Trucost',vol:'120 t 1a OC',avances:['SEDEMA ingresada al tramite.','Muestras 3 calibres lab NYCE ~14 jun.','Vendor Code recibido de WM.'],riesgos:['URGENTE: operador logistico sin seleccionar.','URGENTE: SEDEMA sin fecha.','Deadline artes 25 jun. Si no cierra -> noviembre.','Entrega real: oct-dic 2026 = $750K, no $3M FY.'],pasos:['Confirmar SEDEMA con Luz Amanda.','Resultado NYCE ~14 jun.','Visita MX para cerrar logistica.']}},
+  {id:'t2',div:'tb',name:'Zeus Linea Economica HN+ES+GT',country:'HN - ES - GT',phase:'F4',phaseLabel:'F4>F5 - Lanzamiento',phaseCls:'ph4',type:'incr',typeLabel:'Incremental CAM',typeCls:'ti',impact:240000,impactOpt:240000,realFact:0,dotCls:'dg',statusLabel:'1a OC 22-25 jun',detail:{obj:'Bolsa economica canal tradicional. Piloto Mayab HN con expansion ES y GT.',margen:'Apretado - volumen',vol:'8t HN / 18t Q4',avances:['ZEUS SV canal tradicional confirmado.','1a OC Mayab esperada 22-25 jun.','Forecast Q4: 18t con SV.'],riesgos:['Margen apretado sin incentivos.','Corte hipotesis: agosto 2026.'],pasos:['Ruta de precios y forecast SV esta semana.','Seguimiento 1a OC Mayab.']}},
+  {id:'t3',div:'tb',name:'Coamesa Costa Rica',country:'Costa Rica',phase:'F4',phaseLabel:'F4 - Pre-GTM',phaseCls:'ph4',type:'incr',typeLabel:'Incremental CAM',typeCls:'ti',impact:70000,impactOpt:70000,realFact:0,dotCls:'dg',statusLabel:'Despacho inminente',detail:{obj:'Sobreempaque bolsas para Coamesa CR. Primer lote minimo producido.',margen:'Igual a Dollar City',vol:'8 t/mes',avances:['Cartillas firmadas por Marilyn.','PT completado - despacho prox. semana.','10% incremento trasladado al cliente.'],riesgos:['Primer pedido = lote minimo.'],pasos:['OC con Marilyn cuando PT disponible en bodega.']}},
+  {id:'t4',div:'tb',name:'WM Embosado MP Great Value',country:'CAM',phase:'F4',phaseLabel:'F4 - Pre-GTM',phaseCls:'ph4',type:'prot',typeLabel:'Proteccion UB',typeCls:'tp',impact:933000,impactOpt:933000,realFact:0,dotCls:'dg',statusLabel:'1a prod. completa',detail:{obj:'Embosado GV. Proteccion negocio. +$30K / +46% vs 2025.',margen:'Delta vs. China',vol:'21t 1a produccion',avances:['Primeras entregas junio.','Apertura trade logistico WM 15 jun.','Desde julio: 18t/mes.'],riesgos:['Clasificacion formal pendiente Finanzas.','Necesitan 27t/mes jun-dic.'],pasos:['Ramp-up produccion desde junio.','Definir clasificacion con Finanzas.']}},
+  {id:'t5',div:'tb',name:'SPM > Termo Panama',country:'Panama',phase:'F5',phaseLabel:'F5 - Lanzamiento',phaseCls:'ph5',type:'incr',typeLabel:'Fuera CAM',typeCls:'ti',impact:466000,impactOpt:466000,realFact:5000,dotCls:'dg',statusLabel:'1a OC facturada',detail:{obj:'Cambio marca canal tradicional Panama (Cofrey). 1a OC facturada.',margen:'Riesgo por bajo volumen',vol:'Low - crecer OC',avances:['1a OC facturada $5K mes 1.','JD negocia mayor volumen con Escofery.'],riesgos:['Volumen OC bajo.'],pasos:['JD negocia mayor volumen.','Hipotesis: viabilidad modelo Escofery.']}},
+  {id:'t6',div:'tb',name:'GV Cambio Marca (doblada+rollo)',country:'CAM',phase:'F5',phaseLabel:'F5 E1 / F3 E2',phaseCls:'ph5',type:'prot',typeLabel:'Proteccion UB',typeCls:'tp',impact:12500000,impactOpt:12500000,realFact:0,dotCls:'db',statusLabel:'Etapa 2 en curso',detail:{obj:'Supermax > GV. Blindaje $12.5MM. Etapa 2 rollo en F3.',margen:'Blindaje $12.5MM',vol:'5 articulos',avances:['FASE 1 CERRADA. 60 sem totales.','Lecciones aprendidas completadas 1 jun.'],riesgos:['Saturacion preprensa si F2 Rollo y WM MX en paralelo.'],pasos:['OC filiales sem 22 jun.','Activar artes Etapa 2 al recibirlas de WM.']}},
+  {id:'t7',div:'tb',name:'El Zorro MX',country:'Mexico',phase:'F3',phaseLabel:'F3 - Factibilidad',phaseCls:'ph3',type:'incr',typeLabel:'Fuera CAM',typeCls:'ti',impact:0,impactOpt:0,realFact:0,dotCls:'da',statusLabel:'Reactivado jun-26',detail:{obj:'Linea economica mayorista abarrotero MX. Sin fecha 2026 confirmada.',margen:'TBD',vol:'TBD',avances:['Clau Romero activa con cliente.','Zeus como fit para perfil mayorista.'],riesgos:['Modelo logistico sin definir.','Sin fecha 2026.'],pasos:['Recotizar a CF $35.','Definir logistica y bodega Termo.']}},
+  {id:'t8',div:'tb',name:'Dollar City Colombia',country:'Colombia',phase:'F1',phaseLabel:'F0/F1 - Radar',phaseCls:'ph1',type:'incr',typeLabel:'Fuera CAM',typeCls:'ti',impact:0,impactOpt:0,realFact:0,dotCls:'da',statusLabel:'Research normativa',detail:{obj:'Reformular para normativa OXO Colombia. Sin impacto 2026.',margen:'TBD',vol:'TBD',avances:['Research supermercados COL.','Estudio normativa aditivos.'],riesgos:['Producto no cumple normativa COL.','Formulario C2M pendiente.'],pasos:['Completar formulario esta semana.','Buscar aditivo compatible.']}},
+  {id:'t9',div:'tb',name:'EPA Centroamerica',country:'CAM',phase:'F2',phaseLabel:'F2 - Ideacion',phaseCls:'ph2',type:'incr',typeLabel:'Incremental CAM',typeCls:'ti',impact:0,impactOpt:500000,realFact:0,dotCls:'da',statusLabel:'Reactivado',detail:{obj:'Canal EPA con excedente 80-100t/mes. $500K potencial.',margen:'TBD',vol:'TBD',avances:['Secuencia: Caro GAP -> Cris cotiza -> ruta precios -> JD con cliente.'],riesgos:['Sin precio y fecha: cliente pide inmediato.'],pasos:['Caro ingresa GAP esta semana.','Cris cotiza con GAP revisado.']}},
+  {id:'t10',div:'tb',name:'La Colonia Nicaragua',country:'Nicaragua',phase:'F2',phaseLabel:'F2 - Reactivado',phaseCls:'ph2',type:'incr',typeLabel:'Incremental CAM',typeCls:'ti',impact:0,impactOpt:112000,realFact:0,dotCls:'da',statusLabel:'Reactivado',detail:{obj:'Marca privada La Colonia con excedente capacidad.',margen:'TBD',vol:'TBD',avances:['Reactivado por instruccion de JD.'],riesgos:['Alcance y responsable pendientes.'],pasos:['Confirmar responsable comercial.','Definir alcance y portafolio inicial.']}},
+  {id:'t11',div:'tb',name:'Soriana Mexico',country:'Mexico',phase:'F3',phaseLabel:'F3 - Baja intensidad',phaseCls:'ph3',type:'incr',typeLabel:'Fuera CAM',typeCls:'ti',impact:0,impactOpt:0,realFact:0,dotCls:'da',statusLabel:'Brief cliente',detail:{obj:'Marca privada Soriana MX. Sin impacto 2026.',margen:'TBD',vol:'TBD',avances:['Soriana definiendo brief interno.','Ternova posicionandose como experto CAM.'],riesgos:['Mas largo que El Zorro.'],pasos:['Clau orienta al tier correcto.']}},
+  {id:'t12',div:'tb',name:'Sostenibilidad Sobreempaque WM CA',country:'CAM',phase:'F1',phaseLabel:'F1 - Entend. Cliente',phaseCls:'ph1',type:'incr',typeLabel:'2027',typeCls:'ti',impact:0,impactOpt:0,realFact:0,dotCls:'db',statusLabel:'Kickoff 4-jun',detail:{obj:'Sobreempaque 100% reciclable WM. Resultado esperado jun 2027.',margen:'N/A 2027',vol:'N/A',avances:['Lotes controlados 3 SKUs TERMO.','Kickoff Tatiana WM 4 jun.'],riesgos:['Sin Gantt madre WM CAM.'],pasos:['Cerrar Gantt integrado post kickoff.']}},
+  {id:'t13',div:'tb',name:'Bolsa Lavanda WM CA',country:'CAM',phase:'F3',phaseLabel:'F3 - Factibilidad',phaseCls:'ph3',type:'incr',typeLabel:'Incremental',typeCls:'ti',impact:0,impactOpt:0,realFact:0,dotCls:'db',statusLabel:'Formulario I+D OK',detail:{obj:'Bolsa negra aroma lavanda WM CA. Objetivo oct 2026.',margen:'TBD',vol:'~36 TON',avances:['Ingresada formalmente al funnel.','Ruta de precios enviada.'],riesgos:['Timeline apretado: F3 a oct = 4 meses.'],pasos:['Cerrar Gantt en Gantt madre WM CA.']}},
+  {id:'t14',div:'tb',name:'Arquitectura Marca TERMO',country:'CAM',phase:'F1',phaseLabel:'F1 - Entend. Cliente',phaseCls:'ph1',type:'incr',typeLabel:'Estrategico',typeCls:'ti',impact:0,impactOpt:0,realFact:0,dotCls:'db',statusLabel:'Diagnostico en proceso',detail:{obj:'Redisenar portafolio y rol marca TERMO en CAM.',margen:'N/A',vol:'N/A',avances:['Etapa 2: diagnostico financiero y competitivo.'],riesgos:['Retraso afecta portafolio 2027.'],pasos:['Entrega diagnostico fin junio.']}},
+  {id:'t15',div:'tb',name:'Poopy Bags',country:'CAM',phase:'F2',phaseLabel:'F2 - On Hold',phaseCls:'ph2',type:'hold',typeLabel:'On Hold',typeCls:'th',impact:0,impactOpt:0,realFact:0,dotCls:'dgr',statusLabel:'On Hold',detail:{obj:'Bolsas mascotas - pausado por capacidad.',margen:'TBD',vol:'TBD',avances:['En sistema desde mar 2026.'],riesgos:['Sin fecha revision.'],pasos:['Revisar si excedente permite reactivar.']}}
 ];
 
-// KPI CFG - CORREGIDO segun feedback Carlos
-// Definicion: SOM (objetivo) en dolares de venta, proporcional facturable YTG 2026
-// de proyectos en F4+ (no potencial FY completo)
-const KPI_CFG=[
-  {
-    label:'KPI-02 â€” Pack & Carry',
-    meta:142600,
-    baseYTG:149000,
-    optYTG:149000,
-    baseRatio:1.05,optRatio:1.05,
-    stBase:'green',stOpt:'green',
-    tagBase:'105% cubierto',tagOpt:'105% cubierto',
-    color:'#534AB7',
-    def:'Venta facturable Junâ€“Nov 2026 de proyectos en F4+. Meta budget: $142.6K.',
-    baseProj:'Gabacha C/S ES+NI $149K (Junâ€“Nov). Tela Lluvia no aplica 2026.',
-    optProj:'Gabacha C/S ES+NI $149K. Sin cambio vs. base.'
-  },
-  {
-    label:'KPI-01 â€” Trash Bags CAM',
-    meta:1250000,
-    baseYTG:310000,
-    optYTG:922000,
-    baseRatio:0.25,optRatio:0.74,
-    stBase:'red',stOpt:'amber',
-    tagBase:'25% â€” Brecha critica',tagOpt:'74% â€” Brecha activa',
-    color:'#DC2626',
-    def:'Venta facturable 2026 de nuevos proyectos TB en region CAM. Meta budget: $1.25M.',
-    baseProj:'Zeus HN+ES+GT $240K + Coamesa CR $70K = $310K',
-    optProj:'Base $310K + EPA CAM ~$500K + La Colonia NC ~$112K = $922K (escenario comite jun-2026)'
-  },
-  {
-    label:'KPI-05 â€” Fuera de CAM',
-    meta:684000,
-    baseYTG:466000,
-    optYTG:1216000,
-    baseRatio:0.68,optRatio:1.78,
-    stBase:'amber',stOpt:'green',
-    tagBase:'68% â€” En desarrollo',tagOpt:'178% â€” Meta superada',
-    color:'#059669',
-    def:'Venta facturable 2026 de proyectos con mercado fuera de CAM. Meta budget: $684K.',
-    baseProj:'Termo Panama $466K',
-    optProj:'Termo Panama $466K + WM Mexico GV $750K (oct-dic proporcional 3 meses) = $1.216M. El Zorro y DC Colombia sin fecha 2026.'
-  },
+const KPI=[
+  {label:'KPI-02 â€” Pack & Carry',meta:142600,base:149000,opt:149000,bRatio:1.05,oRatio:1.05,bSt:'green',oSt:'green',bTag:'105% cubierto',oTag:'105% cubierto',col:'#534AB7',def:'Venta facturable Jun-Nov 2026 en F4+. Meta budget: $142.6K.',bProj:'Gabacha C/S ES+NI $149K',oProj:'Gabacha C/S ES+NI $149K. Sin cambio vs. base.'},
+  {label:'KPI-01 â€” Trash Bags CAM',meta:1250000,base:310000,opt:922000,bRatio:0.25,oRatio:0.74,bSt:'red',oSt:'amber',bTag:'25% â€” Brecha critica',oTag:'74% â€” Brecha activa',col:'#DC2626',def:'Venta facturable 2026 nuevos TB en CAM. Meta budget: $1.25M.',bProj:'Zeus $240K + Coamesa $70K = $310K',oProj:'Base $310K + EPA ~$500K + La Colonia ~$112K = $922K (escenario comite jun-2026)'},
+  {label:'KPI-05 â€” Fuera de CAM',meta:684000,base:466000,opt:1216000,bRatio:0.68,oRatio:1.78,bSt:'amber',oSt:'green',bTag:'68% â€” En desarrollo',oTag:'178% â€” Meta superada',col:'#059669',def:'Venta facturable 2026 fuera de CAM. Meta budget: $684K.',bProj:'Termo Panama $466K',oProj:'Panama $466K + WM Mexico GV $750K (oct-dic, 3 meses) = $1.216M. El Zorro y DC Col sin fecha 2026.'}
 ];
 
-const PIPELINE_DATA={
-  potentialFY:{
-    pc:149000+327000,
-    tb:240000+70000+3000000+1000000+450000+466000,
-    incr:5600000,
-    prot:23900000
-  },
-  realFact:{
-    label:'Facturado real acumulado jun-2026',
-    items:[
-      {name:'Termo Panama',amount:5000,note:'Mes 1 - en seguimiento'},
-      {name:'Zeus HN',amount:0,note:'1a OC esperada 22-25 jun'},
-      {name:'Coamesa CR',amount:0,note:'Despacho inminente'},
-      {name:'Gabacha ES',amount:0,note:'Comercializacion inicia sem 22'},
-    ]
-  }
-};
+const REAL=[
+  {name:'Termo Panama',amount:5000,note:'Mes 1 - en seguimiento'},
+  {name:'Zeus HN',amount:0,note:'1a OC esperada 22-25 jun'},
+  {name:'Coamesa CR',amount:0,note:'Despacho inminente'},
+  {name:'Gabacha ES',amount:0,note:'Comercializacion sem 22'}
+];
 
 const PH_KEYS=['F1','F2','F3','F4','F5','F6'];
-const PH_LABELS=['F1-Entend.','F2-Ideacion','F3-Factib.','F4-Pre-GTM','F5-Lanzam.','F6-Monitor.'];
-const PH_NAMES=['F1 - Entendimiento Cliente','F2 - Ideacion','F3 - Factibilidad','F4 - Pre-GTM','F5 - Lanzamiento','F6 - Monitoreo'];
-const PH_COLORS=['#C4B5FD','#93C5FD','#FDE68A','#FBCFE8','#6EE7B7','#A5B4FC'];
-const PH_HOVER=['#A78BFA','#60A5FA','#FCD34D','#F9A8D4','#34D399','#818CF8'];
-const PH_CLS={F1:'ph-f1',F2:'ph-f2',F3:'ph-f3',F4:'ph-f4',F5:'ph-f5',F6:'ph-f6'};
-const TY_CLS={incr:'ty-incr',prot:'ty-prot',hold:'ty-hold'};
+const PH_LABELS=['F1 Entend.','F2 Ideacion','F3 Factib.','F4 Pre-GTM','F5 Lanzam.','F6 Monitor.'];
+const PH_NAMES=['F1 â€” Entendimiento','F2 â€” Ideacion','F3 â€” Factibilidad','F4 â€” Pre-GTM','F5 â€” Lanzamiento','F6 â€” Monitoreo'];
+const PH_COL=['#C4B5FD','#93C5FD','#FDE68A','#FBCFE8','#6EE7B7','#A5B4FC'];
+const PH_HOV=['#A78BFA','#60A5FA','#FCD34D','#F9A8D4','#34D399','#818CF8'];
 
-let isOpt=false,curTab='pc';
+let isOpt=false, curTab='pc', selPhase=-1;
 
 function fmt(n){
-  if(n>=1000000)return'$'+(n/1000000).toFixed(1)+'M';
-  if(n>=1000)return'$'+Math.round(n/1000)+'K';
-  return'$'+n.toLocaleString();
+  if(n>=1000000) return '$'+(n/1000000).toFixed(1)+'M';
+  if(n>=1000) return '$'+Math.round(n/1000)+'K';
+  return '$'+n.toLocaleString();
 }
 
 function toggleView(){
   isOpt=!isOpt;
   document.getElementById('toggle').classList.toggle('on',isOpt);
-  document.getElementById('lbl-base').className=isOpt?'toggle-lbl off':'toggle-lbl';
-  document.getElementById('lbl-opt').className=isOpt?'toggle-lbl':'toggle-lbl off';
-  renderKPIs();renderPipeline();renderTable();updateChart();
+  document.getElementById('lbl-base').className=isOpt?'tlbl off':'tlbl';
+  document.getElementById('lbl-opt').className=isOpt?'tlbl':'tlbl off';
+  renderAll();
+}
+
+function renderAll(){
+  renderKPIs(); renderPipeline(); renderTable(); renderFunnel(selPhase);
 }
 
 function renderKPIs(){
-  const escNota=isOpt
-    ? '<strong>Escenario Optimista:</strong> Incluye proyectos que dependen de desbloqueos especificos (SEDEMA WM MX, OC EPA, alcance La Colonia). WM Mexico: $750K = proporcional 3 meses oct-dic 2026, no el potencial FY de $3M.'
-    : '<strong>Escenario Base:</strong> Solo proyectos con factibilidad confirmada y cliente comprometido. Refleja lo mas probable sin supuestos adicionales.';
-  document.getElementById('nota-escenario').innerHTML=escNota;
+  document.getElementById('nota-esc').innerHTML = isOpt
+    ? '<strong>Escenario Optimista:</strong> WM Mexico = $750K proporcional oct-dic 2026 (no $3M FY). Incluye EPA y La Colonia con desbloqueos especificos.'
+    : '<strong>Escenario Base:</strong> Solo proyectos con factibilidad confirmada y cliente comprometido.';
 
-  document.getElementById('kpi-grid').innerHTML=KPI_CFG.map(k=>{
-    const val=isOpt?k.optYTG:k.baseYTG;
-    const ratio=isOpt?k.optRatio:k.baseRatio;
-    const st=isOpt?k.stOpt:k.stBase;
-    const tag=isOpt?k.tagOpt:k.tagBase;
-    const proj=isOpt?k.optProj:k.baseProj;
-    const pct=Math.min((val/k.meta)*100,120);
-    const metaPct=100; // meta siempre al 100%
-    const fc=st==='green'?'#059669':st==='amber'?'#D97706':'#DC2626';
-    const bg=st==='green'?'#D1FAE5':st==='amber'?'#FEF3C7':'#FEE2E2';
-    return`<div class="kpi-card">
-      <div class="kpi-label">${k.label}</div>
-      <div class="kpi-def">${k.def}</div>
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:.5rem;margin-bottom:.5rem">
-        <div>
-          <div class="kpi-val" style="color:${k.color}">${fmt(val)}</div>
-          <div class="kpi-meta">Meta budget: ${fmt(k.meta)}</div>
-        </div>
-        <span class="kpi-tag" style="background:${bg};color:${fc}">${tag}</span>
-      </div>
-      <div class="kpi-bar-wrap">
-        <div class="kpi-bar-label">
-          <span>$0</span>
-          <span style="color:${fc}">Proyeccion: ${fmt(val)} (${Math.round(pct)}%)</span>
-          <span>Meta: ${fmt(k.meta)}</span>
-        </div>
-        <div class="kpi-bar-track">
-          <div class="kpi-bar-fill" style="width:${Math.min(pct,100)}%;background:${fc}">
-            ${pct<100?'':'<div style="position:absolute;right:0;top:-2px;font-size:8px;color:white;padding:0 2px">âœ“</div>'}
-          </div>
-          <div style="position:absolute;left:${Math.min(metaPct,100)}%;top:-2px;width:2px;height:10px;background:#374151;border-radius:1px"></div>
-        </div>
-      </div>
-      <div style="margin-top:6px;padding-top:6px;border-top:1px solid #F3F4F6">
-        <div style="font-size:9px;color:#9CA3AF;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Incluye:</div>
-        <div style="font-size:9px;color:#374151;line-height:1.5">${proj}</div>
-      </div>
-    </div>`;
+  document.getElementById('kpi-grid').innerHTML = KPI.map(function(k){
+    var val = isOpt ? k.opt : k.base;
+    var ratio = isOpt ? k.oRatio : k.bRatio;
+    var st = isOpt ? k.oSt : k.bSt;
+    var tag = isOpt ? k.oTag : k.bTag;
+    var proj = isOpt ? k.oProj : k.bProj;
+    var pct = Math.min((val / k.meta) * 100, 100);
+    var fc = st === 'green' ? '#059669' : st === 'amber' ? '#D97706' : '#DC2626';
+    var bg = st === 'green' ? '#D1FAE5' : st === 'amber' ? '#FEF3C7' : '#FEE2E2';
+    return '<div class="card">'
+      + '<div class="klbl">' + k.label + '</div>'
+      + '<div class="kdef">' + k.def + '</div>'
+      + '<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:.4rem;margin-bottom:.4rem">'
+      + '<div><div class="kval" style="color:' + k.col + '">' + fmt(val) + '</div><div class="kmeta">Meta: ' + fmt(k.meta) + '</div></div>'
+      + '<span class="ktag" style="background:' + bg + ';color:' + fc + '">' + tag + '</span>'
+      + '</div>'
+      + '<div style="font-size:8px;color:#9CA3AF;display:flex;justify-content:space-between;margin-bottom:2px"><span>$0</span><span style="color:' + fc + '">' + Math.round(pct) + '% de meta</span><span>' + fmt(k.meta) + '</span></div>'
+      + '<div class="btrack"><div class="bfill" style="width:' + pct + '%;background:' + fc + '"></div><div class="bmeta-marker"></div></div>'
+      + '<div class="kincl"><strong>Incluye:</strong> ' + proj + '</div>'
+      + '</div>';
   }).join('');
 }
 
 function renderPipeline(){
-  const totalIncr=5600000;
-  const totalProt=23900000;
-  const realTotal=5000; // solo Panama mes 1
-
-  document.getElementById('pipeline-grid').innerHTML=`
-    <div class="kpi-card" style="border:1.5px solid #D97706;background:linear-gradient(135deg,#FFFBEB,#FFF8E1)">
-      <div class="kpi-label" style="color:#92400E">Pipeline neto de crecimiento C2M</div>
-      <div class="kpi-def" style="color:#B45309">Potencial anual (SOM proyectado) de proyectos activos en F1â€“F5. Independiente del escenario. Excluye proyectos de proteccion del negocio.</div>
-      <div style="display:flex;gap:1.5rem;margin-bottom:.75rem">
-        <div>
-          <div style="font-size:20px;font-weight:700;color:#D97706">${fmt(totalIncr)}</div>
-          <div style="font-size:10px;color:#92400E">Potencial incremental</div>
-        </div>
-        <div>
-          <div style="font-size:20px;font-weight:700;color:#1D4ED8">${fmt(totalProt)}</div>
-          <div style="font-size:10px;color:#1D4ED8">Proteccion del negocio</div>
-        </div>
-      </div>
-      <div style="height:6px;border-radius:99px;background:#FEF3C7;overflow:hidden;margin-bottom:4px">
-        <div style="width:90%;height:100%;border-radius:99px;background:#D97706"></div>
-      </div>
-      <div style="font-size:9px;color:#92400E;font-weight:600">2.70x vs. benchmark 3x â€” Cerrar brecha es prioridad 2026â€“2027</div>
-    </div>
-
-    <div class="kpi-card" style="border:1.5px solid #10B981">
-      <div class="kpi-label" style="color:#065F46">Ventas reales facturadas â€” Acumulado jun-2026</div>
-      <div class="kpi-def" style="color:#6B7280">Venta dura confirmada (OC facturada). Primera lectura de exito: agosto 2026 (2da OC dentro de 90 dias).</div>
-      <div style="font-size:22px;font-weight:700;color:#10B981;margin-bottom:.5rem">${fmt(realTotal)}</div>
-      <div style="display:flex;flex-direction:column;gap:4px;margin-top:.25rem">
-        ${PIPELINE_DATA.realFact.items.map(it=>`
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 6px;border-radius:6px;background:#F0FDF4">
-            <span style="font-size:10px;font-weight:600;color:#065F46">${it.name}</span>
-            <span style="font-size:10px;color:${it.amount>0?'#059669':'#9CA3AF'};font-weight:${it.amount>0?700:400}">${it.amount>0?fmt(it.amount):it.note}</span>
-          </div>
-        `).join('')}
-      </div>
-      <div style="margin-top:8px;font-size:9px;color:#9CA3AF;font-style:italic">Primera lectura formal KPI-04 Exito Lanzamiento: agosto 2026</div>
-    </div>`;
+  var realTotal = 5000;
+  document.getElementById('pip-grid').innerHTML =
+    '<div class="card" style="border:1.5px solid #D97706;background:#FFFBEB">'
+    + '<div class="klbl" style="color:#92400E">Pipeline neto de crecimiento C2M</div>'
+    + '<div class="kdef" style="color:#B45309">Potencial SOM anual de proyectos F1-F5. Independiente del escenario. Excluye proteccion del negocio.</div>'
+    + '<div style="display:flex;gap:1.25rem;margin-bottom:.6rem">'
+    + '<div><div style="font-size:18px;font-weight:700;color:#D97706">$5.6M</div><div style="font-size:9px;color:#92400E">Potencial incremental</div></div>'
+    + '<div><div style="font-size:18px;font-weight:700;color:#1D4ED8">$23.9M</div><div style="font-size:9px;color:#1D4ED8">Proteccion negocio</div></div>'
+    + '</div>'
+    + '<div style="height:5px;border-radius:99px;background:#FEF3C7;overflow:hidden;margin-bottom:4px"><div style="width:90%;height:100%;border-radius:99px;background:#D97706"></div></div>'
+    + '<div style="font-size:9px;color:#92400E;font-weight:600">2.70x vs. benchmark 3x â€” Cerrar brecha: prioridad 2026-2027</div>'
+    + '</div>'
+    + '<div class="card" style="border:1.5px solid #10B981">'
+    + '<div class="klbl" style="color:#065F46">Ventas reales facturadas â€” jun 2026</div>'
+    + '<div class="kdef">Venta dura confirmada (OC facturada). Primera lectura exito: agosto 2026 (2da OC dentro de 90 dias).</div>'
+    + '<div style="font-size:20px;font-weight:700;color:#10B981;margin-bottom:.4rem">' + fmt(realTotal) + '</div>'
+    + REAL.map(function(it){
+        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:5px;background:#F0FDF4;margin-bottom:3px">'
+          + '<span style="font-size:9px;font-weight:600;color:#065F46">' + it.name + '</span>'
+          + '<span style="font-size:9px;color:' + (it.amount > 0 ? '#059669' : '#9CA3AF') + ';font-weight:' + (it.amount > 0 ? 700 : 400) + '">' + (it.amount > 0 ? fmt(it.amount) : it.note) + '</span>'
+          + '</div>';
+      }).join('')
+    + '<div style="margin-top:6px;font-size:9px;color:#9CA3AF;font-style:italic">KPI-04 primera lectura formal: agosto 2026</div>'
+    + '</div>';
 }
 
 function setTab(tab){
-  curTab=tab;
-  document.getElementById('tab-pc').className='tab'+(tab==='pc'?' active':'');
-  document.getElementById('tab-tb').className='tab'+(tab==='tb'?' active':'');
-  renderTable();updateChart();resetPanel();
+  curTab = tab;
+  selPhase = -1;
+  document.getElementById('tab-pc').className = 'tab' + (tab === 'pc' ? ' active' : '');
+  document.getElementById('tab-tb').className = 'tab' + (tab === 'tb' ? ' active' : '');
+  renderTable();
+  renderFunnel(-1);
+  resetPanel();
 }
 
-function renderTable(){
-  const projs=PROJECTS.filter(p=>p.div===curTab);
-  document.getElementById('table-title').textContent='Proyectos '+(curTab==='pc'?'Pack & Carry Bags':'Trash Bags');
-  document.getElementById('table-count').textContent=projs.length+' proyectos';
-  document.getElementById('proj-tbody').innerHTML=projs.map((p,i)=>{
-    const val=isOpt?p.impactOpt:p.impact;
-    const bg=i%2===0?'':'style="background:#FAFAFA"';
-    const realStr=p.realFact>0?'<span style="color:#10B981;font-weight:700">'+fmt(p.realFact)+'</span>':'<span style="color:#D1D5DB;font-size:11px">â€”</span>';
-    return`<tr ${bg}>
-      <td><div style="display:flex;align-items:center;gap:6px"><span class="dot dot-${p.status}"></span><span class="td-name">${p.name}</span></div><div class="td-sub">${p.statusLabel}</div></td>
-      <td style="color:#6B7280;white-space:nowrap;font-size:12px">${p.country}</td>
-      <td><span class="badge ${PH_CLS[p.phase]||''}">${p.phaseLabel}</span></td>
-      <td><span class="badge ${TY_CLS[p.type]||''}">${p.typeLabel}</span></td>
-      <td style="text-align:right;font-weight:700;color:#534AB7;white-space:nowrap">${val>0?fmt(val):'<span style="color:#D1D5DB;font-weight:400;font-size:11px">TBD</span>'}</td>
-      <td style="text-align:right">${realStr}</td>
-      <td><button class="btn-detail" onclick="openModal('${p.id}')">Ver &gt;</button></td>
-    </tr>`;
-  }).join('');
-  document.getElementById('proj-mobile').innerHTML=projs.map(p=>{
-    const val=isOpt?p.impactOpt:p.impact;
-    return`<div class="m-card">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.5rem">
-        <div style="display:flex;align-items:center;gap:6px;flex:1"><span class="dot dot-${p.status}"></span><span style="font-weight:600;font-size:13px">${p.name}</span></div>
-        <span class="badge ${PH_CLS[p.phase]||''}" style="margin-left:.5rem;flex-shrink:0">${p.phase}</span>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;gap:.4rem;flex-wrap:wrap"><span style="font-size:10px;color:#9CA3AF">${p.country}</span><span class="badge ${TY_CLS[p.type]||''}">${p.typeLabel}</span></div>
-        <span style="font-weight:700;color:#534AB7;font-size:13px">${val>0?fmt(val):'TBD'}</span>
-      </div>
-      <button class="m-card-btn" onclick="openModal('${p.id}')">Ver detalle</button>
-    </div>`;
-  }).join('');
+function renderFunnel(selIdx){
+  var projs = PROJECTS.filter(function(p){ return p.div === curTab; });
+  var counts = PH_KEYS.map(function(ph){ return projs.filter(function(p){ return p.phase === ph; }).length; });
+  var mx = Math.max.apply(null, counts.concat([1]));
+
+  var html = '';
+  for(var i = 0; i < PH_KEYS.length; i++){
+    var n = counts[i];
+    var pct = Math.round(n / mx * 100);
+    var col = selIdx < 0 ? PH_COL[i] : (i === selIdx ? PH_HOV[i] : PH_COL[i] + '44');
+    var rowBg = (selIdx >= 0 && i === selIdx) ? '#F5F3FF' : 'transparent';
+    html += '<div onclick="clickPhase(' + i + ')" style="display:flex;align-items:center;gap:8px;margin-bottom:7px;cursor:pointer;padding:4px 6px;border-radius:8px;background:' + rowBg + ';transition:background .15s" '
+      + 'onmouseover="this.style.background=\'#F5F3FF\'" onmouseout="this.style.background=\'' + rowBg + '\'">'
+      + '<div style="width:72px;font-size:10px;font-weight:600;color:#6B7280;flex-shrink:0;text-align:right">' + PH_LABELS[i] + '</div>'
+      + '<div style="flex:1;height:26px;background:#F3F4F6;border-radius:6px;overflow:hidden">'
+      + '<div style="height:100%;background:' + col + ';width:' + (n > 0 ? Math.max(pct, 8) : 0) + '%;display:flex;align-items:center;padding-left:6px;transition:all .3s;border-radius:6px">'
+      + (n > 0 ? '<span style="font-size:11px;font-weight:700;color:' + (i === 2 ? '#92400E' : 'white') + ';white-space:nowrap">' + n + ' proy.</span>' : '')
+      + '</div>'
+      + '</div>'
+      + '</div>';
+  }
+  document.getElementById('funnel-bars').innerHTML = html;
 }
 
-function updateChart(){ renderFunnelBars(); }
+function clickPhase(idx){
+  selPhase = idx;
+  renderFunnel(idx);
+  showPhase(idx);
+}
 
 function resetPanel(){
-  renderFunnelBars();
-  document.getElementById('panel-title').textContent='< Selecciona una fase';
-  document.getElementById('panel-body').innerHTML='<div class="panel-empty"><div style="font-size:2rem">&#128070;</div><div>Haz clic en cualquier barra<br>del funnel para ver los proyectos</div></div>';
+  document.getElementById('panel-title').textContent = '< Selecciona una fase';
+  document.getElementById('panel-body').innerHTML = '<div class="pe"><div style="font-size:2rem">ðŸ‘†</div><div>Haz clic en cualquier barra<br>del funnel para ver los proyectos</div></div>';
 }
 
 function showPhase(idx){
-  const ph=PH_KEYS[idx];
-  const projs=PROJECTS.filter(p=>p.div===curTab&&p.phase===ph);
-  renderFunnelBars(idx);
-  document.getElementById('panel-title').innerHTML=
-    '<span style="display:inline-flex;align-items:center;gap:5px"><span style="width:9px;height:9px;border-radius:50%;background:'+PH_HOVER[idx]+';display:inline-block"></span>'+
-    PH_NAMES[idx]+' â€” <span style="color:#534AB7">'+projs.length+' proyecto'+(projs.length!==1?'s':'')+'</span></span>';
-  if(projs.length===0){
-    document.getElementById('panel-body').innerHTML='<div class="panel-empty"><div>Sin proyectos en esta fase.</div></div>';
+  var ph = PH_KEYS[idx];
+  var projs = PROJECTS.filter(function(p){ return p.div === curTab && p.phase === ph; });
+
+  document.getElementById('panel-title').innerHTML =
+    '<span style="display:inline-flex;align-items:center;gap:5px">'
+    + '<span style="width:8px;height:8px;border-radius:50%;background:' + PH_HOV[idx] + ';display:inline-block"></span>'
+    + PH_NAMES[idx] + ' &mdash; <span style="color:#534AB7">' + projs.length + ' proyecto' + (projs.length !== 1 ? 's' : '') + '</span>'
+    + '</span>';
+
+  if(!projs.length){
+    document.getElementById('panel-body').innerHTML = '<div class="pe"><div>Sin proyectos en esta fase.</div></div>';
     return;
   }
-  document.getElementById('panel-body').innerHTML=
-    '<div class="panel-list">'+
-    projs.map(p=>{
-      const val=isOpt?p.impactOpt:p.impact;
-      const tyBg=p.type==='incr'?'#D1FAE5':p.type==='prot'?'#DBEAFE':'#F3F4F6';
-      const tyFg=p.type==='incr'?'#065F46':p.type==='prot'?'#1E40AF':'#4B5563';
-      return`<div class="panel-item" onclick="openModal('${p.id}')">
-        <span class="dot dot-${p.status}"></span>
-        <div style="flex:1;min-width:0"><div class="panel-item-name">${p.name}</div><div class="panel-item-sub">${p.country} â€” ${p.statusLabel}</div></div>
-        <div style="text-align:right;flex-shrink:0"><div class="panel-item-val">${val>0?fmt(val):'TBD'}</div><div class="panel-item-type" style="background:${tyBg};color:${tyFg}">${p.typeLabel}</div></div>
-      </div>`;
-    }).join('')+
-    '</div><div style="font-size:10px;color:#9CA3AF;text-align:center;margin-top:.5rem">Clic en un proyecto para ver el detalle</div>';
+
+  var html = '<div class="pl">';
+  projs.forEach(function(p){
+    var val = isOpt ? p.impactOpt : p.impact;
+    var tyBg = p.type === 'incr' ? '#D1FAE5' : p.type === 'prot' ? '#DBEAFE' : '#F3F4F6';
+    var tyFg = p.type === 'incr' ? '#065F46' : p.type === 'prot' ? '#1E40AF' : '#4B5563';
+    html += '<div class="pi" onclick="openModal(\'' + p.id + '\')">'
+      + '<span class="dot ' + p.dotCls + '"></span>'
+      + '<div style="flex:1;min-width:0"><div class="pn">' + p.name + '</div><div class="ps">' + p.country + ' &mdash; ' + p.statusLabel + '</div></div>'
+      + '<div style="text-align:right;flex-shrink:0">'
+      + '<div class="pv">' + (val > 0 ? fmt(val) : 'TBD') + '</div>'
+      + '<div style="font-size:8px;padding:1px 5px;border-radius:4px;background:' + tyBg + ';color:' + tyFg + '">' + p.typeLabel + '</div>'
+      + '</div>'
+      + '</div>';
+  });
+  html += '</div><div style="font-size:9px;color:#9CA3AF;text-align:center;margin-top:4px">Clic en un proyecto para ver el detalle</div>';
+  document.getElementById('panel-body').innerHTML = html;
 }
 
-function initChart(){ renderFunnelBars(); }
+function renderTable(){
+  var projs = PROJECTS.filter(function(p){ return p.div === curTab; });
+  document.getElementById('table-title').textContent = 'Proyectos ' + (curTab === 'pc' ? 'Pack & Carry Bags' : 'Trash Bags');
+  document.getElementById('table-cnt').textContent = projs.length + ' proyectos';
 
-function renderFunnelBars(selectedIdx){
-  const projs=PROJECTS.filter(p=>p.div===curTab);
-  const counts=PH_KEYS.map(ph=>projs.filter(p=>p.phase===ph).length);
-  const maxCount=Math.max(...counts,1);
-  const el=document.getElementById('funnel-bars');
-  el.innerHTML=PH_KEYS.map((ph,i)=>{
-    const n=counts[i];
-    const pct=Math.round((n/maxCount)*100);
-    const col=selectedIdx===undefined?PH_COLORS[i]:(i===selectedIdx?PH_COLORS[i]:PH_COLORS[i]+'55');
-    const names=projs.filter(p=>p.phase===ph).map(p=>'<div style="font-size:9px;color:#6B7280;padding-left:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px">Â· '+p.name+'</div>').join('');
-    return \`<div onclick="showPhase(\${i})" style="display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer;padding:4px 6px;border-radius:8px;transition:background .15s" onmouseover="this.style.background='#F5F3FF'" onmouseout="this.style.background='transparent'">
-      <div style="width:70px;font-size:10px;font-weight:600;color:#6B7280;flex-shrink:0;text-align:right">\${PH_LABELS[i]}</div>
-      <div style="flex:1;position:relative;height:28px">
-        <div style="height:24px;background:\${col};border-radius:6px;width:\${Math.max(pct,3)}%;display:flex;align-items:center;padding-left:6px;transition:width .3s,background .3s">
-          <span style="font-size:11px;font-weight:700;color:white;white-space:nowrap">\${n>0?n+' proy.':''}</span>
-        </div>
-      </div>
-    </div>\`;
-  }).join('');
+  var html = '';
+  projs.forEach(function(p, i){
+    var val = isOpt ? p.impactOpt : p.impact;
+    var bgRow = i % 2 ? 'style="background:#FAFAFA"' : '';
+    var rf = p.realFact > 0
+      ? '<span style="color:#10B981;font-weight:700">' + fmt(p.realFact) + '</span>'
+      : '<span style="color:#D1D5DB">â€”</span>';
+    html += '<tr ' + bgRow + '>'
+      + '<td><div style="display:flex;align-items:center;gap:5px"><span class="dot ' + p.dotCls + '"></span><span class="tn">' + p.name + '</span></div><div class="ts">' + p.statusLabel + '</div></td>'
+      + '<td style="color:#6B7280;white-space:nowrap">' + p.country + '</td>'
+      + '<td><span class="badge ' + p.phaseCls + '">' + p.phaseLabel + '</span></td>'
+      + '<td><span class="badge ' + p.typeCls + '">' + p.typeLabel + '</span></td>'
+      + '<td style="text-align:right;font-weight:700;color:#534AB7;white-space:nowrap">' + (val > 0 ? fmt(val) : '<span style="color:#D1D5DB;font-weight:400">TBD</span>') + '</td>'
+      + '<td style="text-align:right">' + rf + '</td>'
+      + '<td><button class="btn-d" onclick="openModal(\'' + p.id + '\')">Ver &rsaquo;</button></td>'
+      + '</tr>';
+  });
+  document.getElementById('proj-tbody').innerHTML = html;
 }
 
 function openModal(id){
-  const p=PROJECTS.find(x=>x.id===id);if(!p)return;
-  const d=p.detail;
-  const valBase=p.impact;const valOpt=p.impactOpt;
-  document.getElementById('modal-badge').textContent=p.phaseLabel+' â€” '+p.country;
-  document.getElementById('modal-title').textContent=p.name;
-  document.getElementById('modal-obj').textContent=d.obj;
-  document.getElementById('modal-meta').innerHTML=
-    `<div class="modal-meta-item"><div class="modal-meta-lbl">Margen</div><div class="modal-meta-val">${d.margen}</div></div>
-     <div class="modal-meta-item"><div class="modal-meta-lbl">Volumen Est.</div><div class="modal-meta-val">${d.vol}</div></div>
-     <div class="modal-meta-item"><div class="modal-meta-lbl">Base 2026</div><div class="modal-meta-val">${valBase>0?fmt(valBase):'TBD'}</div></div>
-     <div class="modal-meta-item"><div class="modal-meta-lbl">Optimista 2026</div><div class="modal-meta-val">${valOpt>0?fmt(valOpt):'TBD'}</div></div>`;
-  document.getElementById('modal-body').innerHTML=
-    `<div class="modal-block" style="background:#F0FDF4;border:1px solid #BBF7D0">
-      <div class="modal-block-title" style="color:#065F46">Avances y estado actual</div>
-      <ul>${d.avances.map(a=>`<li><span style="color:#10B981;flex-shrink:0">âœ“</span>${a}</li>`).join('')}</ul>
-    </div>
-    <div class="modal-block" style="background:#FFFBEB;border:1px solid #FDE68A">
-      <div class="modal-block-title" style="color:#92400E">Riesgos activos</div>
-      <ul>${d.riesgos.map(r=>`<li><span style="color:#F59E0B;flex-shrink:0">!</span>${r}</li>`).join('')}</ul>
-    </div>
-    <div class="modal-block" style="background:#EFF6FF;border:1px solid #BFDBFE">
-      <div class="modal-block-title" style="color:#1E40AF">Proximos pasos</div>
-      <ul>${d.pasos.map(s=>`<li><span style="color:#3B82F6;flex-shrink:0">â€º</span>${s}</li>`).join('')}</ul>
-    </div>
-    <div style="border-top:1px solid #EDE9FE;padding-top:.85rem;text-align:center">
-      <div style="font-size:10px;color:#9CA3AF;margin-bottom:.5rem">Consulta directo a <strong>Geo Ehlerman</strong> via WhatsApp.</div>
-      <button onclick="openWhatsApp('${p.name}')" style="background:#25D366;color:white;border:none;border-radius:10px;padding:.55rem 1.25rem;font-size:12px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Consultar con Innovacion
-      </button>
-    </div>`;
-  document.getElementById('modal-backdrop').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(e){if(e.target.id==='modal-backdrop')closeModalBtn();}
-function closeModalBtn(){document.getElementById('modal-backdrop').classList.remove('open');document.body.style.overflow='';}
+  var p = PROJECTS.find(function(x){ return x.id === id; });
+  if(!p) return;
+  var d = p.detail;
 
-const whatsappNumber="50371423600";
-function openWhatsApp(projectName){
-  const msg=encodeURIComponent("Hola Geo, tengo una consulta sobre el proyecto: "+projectName+" en el dashboard C2M.");
-  window.open("https://wa.me/"+whatsappNumber+"?text="+msg,"_blank");
+  document.getElementById('m-badge').textContent = p.phaseLabel + ' â€” ' + p.country;
+  document.getElementById('m-title').textContent = p.name;
+  document.getElementById('m-obj').textContent = d.obj;
+  document.getElementById('m-meta').innerHTML =
+    '<div class="mmi"><div class="mmil">Margen</div><div class="mmiv">' + d.margen + '</div></div>'
+    + '<div class="mmi"><div class="mmil">Volumen</div><div class="mmiv">' + d.vol + '</div></div>'
+    + '<div class="mmi"><div class="mmil">Base 2026</div><div class="mmiv">' + (p.impact > 0 ? fmt(p.impact) : 'TBD') + '</div></div>'
+    + '<div class="mmi"><div class="mmil">Optimista 2026</div><div class="mmiv">' + (p.impactOpt > 0 ? fmt(p.impactOpt) : 'TBD') + '</div></div>';
+
+  document.getElementById('m-body').innerHTML =
+    '<div class="mbl" style="background:#F0FDF4;border:1px solid #BBF7D0">'
+    + '<div class="mblt" style="color:#065F46">Avances y estado actual</div>'
+    + '<ul>' + d.avances.map(function(a){ return '<li><span style="color:#10B981;flex-shrink:0">&#10003;</span>' + a + '</li>'; }).join('') + '</ul>'
+    + '</div>'
+    + '<div class="mbl" style="background:#FFFBEB;border:1px solid #FDE68A">'
+    + '<div class="mblt" style="color:#92400E">Riesgos activos</div>'
+    + '<ul>' + d.riesgos.map(function(r){ return '<li><span style="color:#F59E0B;flex-shrink:0">!</span>' + r + '</li>'; }).join('') + '</ul>'
+    + '</div>'
+    + '<div class="mbl" style="background:#EFF6FF;border:1px solid #BFDBFE">'
+    + '<div class="mblt" style="color:#1E40AF">Proximos pasos</div>'
+    + '<ul>' + d.pasos.map(function(s){ return '<li><span style="color:#3B82F6;flex-shrink:0">&#8250;</span>' + s + '</li>'; }).join('') + '</ul>'
+    + '</div>'
+    + '<div style="text-align:center;padding-top:.5rem">'
+    + '<div style="font-size:9px;color:#9CA3AF;margin-bottom:.5rem">Consulta directo a <strong>Geo Ehlermann</strong> via WhatsApp</div>'
+    + '<button onclick="openWA(\'' + p.name.replace(/'/g, '') + '\')" style="background:#25D366;color:white;border:none;border-radius:9px;padding:.45rem 1rem;font-size:11px;font-weight:600;cursor:pointer">Consultar con Innovacion</button>'
+    + '</div>';
+
+  document.getElementById('mb').classList.add('open');
 }
 
-renderKPIs();
-renderPipeline();
-renderTable();
-initChart();
+function closeMOut(e){ if(e.target.id === 'mb') closeM(); }
+function closeM(){ document.getElementById('mb').classList.remove('open'); }
+function openWA(p){ window.open('https://wa.me/50371423600?text=' + encodeURIComponent('Hola Geo, consulta sobre: ' + p + ' en el dashboard C2M.'), '_blank'); }
+
+renderAll();
 </script>
-
-<footer>Ternova Consumo Masivo â€” C2M Dashboard v2.1 â€” Jun 2026 &nbsp;|&nbsp; <strong>Geo Ehlermann Â· Marketing EstratÃ©gico</strong></footer>
 </body>
 </html>
