@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>C2M Dashboard - Ternova</title>
 <style>
@@ -222,7 +223,7 @@ var PROJECTS=[
 ];
 
 var KPI=[
-  {label:'KPI-02 - Pack &amp; Carry',meta:142600,base:149000,opt:149000,bRatio:1.05,oRatio:1.05,bSt:'green',oSt:'green',bTag:'105% cubierto',oTag:'105% cubierto',col:'#534AB7',def:'Venta facturable Jun-Nov 2026 en F4+. Meta: $142.6K.',bProj:'Gabacha C/S ES+NI $149K',oProj:'Gabacha C/S ES+NI $149K. Sin cambio vs. base.'},
+  {label:'KPI-02 - Pack & Carry',meta:142600,base:149000,opt:149000,bRatio:1.05,oRatio:1.05,bSt:'green',oSt:'green',bTag:'105% cubierto',oTag:'105% cubierto',col:'#534AB7',def:'Venta facturable Jun-Nov 2026 en F4+. Meta: $142.6K.',bProj:'Gabacha C/S ES+NI $149K',oProj:'Gabacha C/S ES+NI $149K. Sin cambio vs. base.'},
   {label:'KPI-01 - Trash Bags CAM',meta:1250000,base:310000,opt:922000,bRatio:0.25,oRatio:0.74,bSt:'red',oSt:'amber',bTag:'25% - Brecha critica',oTag:'74% - Brecha activa',col:'#DC2626',def:'Venta facturable 2026 nuevos TB en CAM. Meta: $1.25M.',bProj:'Zeus $240K + Coamesa $70K = $310K',oProj:'Base $310K + EPA ~$500K + La Colonia ~$112K = $922K'},
   {label:'KPI-05 - Fuera de CAM',meta:684000,base:466000,opt:1216000,bRatio:0.68,oRatio:1.78,bSt:'amber',oSt:'green',bTag:'68% - En desarrollo',oTag:'178% - Meta superada',col:'#059669',def:'Venta facturable 2026 fuera de CAM. Meta: $684K.',bProj:'Termo Panama $466K',oProj:'Panama $466K + WM Mexico GV $750K (oct-dic, 3 meses) = $1.216M'}
 ];
@@ -393,7 +394,7 @@ function showPhase(idx){
   document.getElementById('panel-title').innerHTML=
     '<span style="display:inline-flex;align-items:center;gap:5px">'
     +'<span style="width:8px;height:8px;border-radius:50%;background:'+PH_HOV[idx]+';display:inline-block"></span>'
-    +PH_NAMES[idx]+' &mdash; <span style="color:#534AB7">'+projs.length+' proyecto'+(projs.length!==1?'s':'')+'</span>'
+    +PH_NAMES[idx]+' &ndash; <span style="color:#534AB7">'+projs.length+' proyecto'+(projs.length!==1?'s':'')+'</span>'
     +'</span>';
   if(!projs.length){
     document.getElementById('panel-body').innerHTML='<div class="pe"><div>Sin proyectos en esta fase.</div></div>';
@@ -406,7 +407,7 @@ function showPhase(idx){
     var tyFg=p.type==='incr'?'#065F46':p.type==='prot'?'#1E40AF':'#4B5563';
     html+='<div class="pi" onclick="openModal(\''+p.id+'\')">'
       +'<span class="dot '+p.dotCls+'"></span>'
-      +'<div style="flex:1;min-width:0"><div class="pn">'+p.name+'</div><div class="ps">'+p.country+' &mdash; '+p.statusLabel+'</div></div>'
+      +'<div style="flex:1;min-width:0"><div class="pn">'+p.name+'</div><div class="ps">'+p.country+' - '+p.statusLabel+'</div></div>'
       +'<div style="text-align:right;flex-shrink:0"><div class="pv">'+(val>0?fmt(val):'TBD')+'</div>'
       +'<div style="font-size:8px;padding:1px 5px;border-radius:4px;background:'+tyBg+';color:'+tyFg+'">'+p.typeLabel+'</div></div>'
       +'</div>';
